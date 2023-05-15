@@ -14,7 +14,7 @@ const Boarding: FC = () => {
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <View
         style={{
-          marginTop: StatusBar.currentHeight + 20,
+          marginTop: StatusBar.currentHeight! + 20,
           marginHorizontal: 20,
           flex: 1,
         }}
