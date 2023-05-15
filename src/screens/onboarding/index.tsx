@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { FC } from 'react';
-import { View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { OnboardingStackTypes } from '@/shared/types/navigation';
 
+import Boarding from './components/boarding';
 import { Container } from './styles';
 
 const Tab = createNativeStackNavigator<OnboardingStackTypes.ParamList>();
@@ -24,15 +24,15 @@ const OnboardingScreen: FC = () => (
     >
       <Tab.Screen
         name={OnboardingStackTypes.Routes.BoardingOne}
-        component={() => <View />}
+        component={Boarding}
       />
       <Tab.Screen
         name={OnboardingStackTypes.Routes.BoardingTwo}
-        component={() => <View />}
+        component={Boarding}
       />
       <Tab.Screen
         name={OnboardingStackTypes.Routes.BoardingThree}
-        component={() => <View />}
+        component={Boarding}
         options={{ statusBarStyle: 'light' }}
       />
     </Tab.Navigator>
