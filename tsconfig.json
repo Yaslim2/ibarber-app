@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["src/*"],
     },
+    "types": ["@types/styled-components-react-native"]
   },
   "exclude": [
     "node_modules",
