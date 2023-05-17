@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
 const useController = () => {
-  const [currentBoard, setCurrentBoard] = useState(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentBoard, setCurrentBoard] = useState<
+    'BoardingOne' | 'BoardingTwo' | 'BoardingThree'
+  >('BoardingOne');
   const boardingTexts = {
     BoardingOne: {
-      title: 'Encontre a melhor barbearia nas proximidades',
+      title: 'Encontre a melhor barbearia\nnas proximidades',
       subtitle:
         'Pesquise facilmente suas melhores e favoritas barbearias em qualquer lugar próximo',
     },
@@ -24,6 +27,8 @@ const useController = () => {
     boardingTexts,
     currentBoard,
     setCurrentBoard,
+    currentPage,
+    setCurrentPage,
   };
 };
 
