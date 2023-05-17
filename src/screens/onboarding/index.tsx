@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { OnboardingStackTypes } from '@/shared/types/navigation';
 
-import Boarding from './components/boarding';
+import Boarding from './components/Boarding';
 import { Container } from './styles';
 
 const Tab = createNativeStackNavigator<OnboardingStackTypes.ParamList>();
