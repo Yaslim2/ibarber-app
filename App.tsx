@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import React from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import { NavigationContainer } from '@react-navigation/native';
 
+import useThemeSelectorProvider from '@/shared/providers/theme';
 import MainStack from '@/shared/routes';
 import { MainStackTypes } from '@/shared/types/navigation';
 
 import * as Font from 'expo-font';
 
 export default function App() {
+  const { currentTheme, navigationTheme } = useThemeSelectorProvider();
   const [fontLoaded, setFontLoaded] = useState<boolean>(false);
   const handleLoadFonts = async () => {
     await Font.loadAsync({
@@ -16,10 +19,7 @@ export default function App() {
       'Sk-Modernist-Bold': require('@/assets/fonts/Sk-Modernist-Bold.otf'),
       'Sk-Modernist-Light': require('@/assets/fonts/Sk-Modernist-Light.ttf'),
       'DM-Sans-Bold': require('@/assets/fonts/DMSans-Bold.ttf'),
-      'DM-Sans-Bold-Italic': require('@/assets/fonts/DMSans-BoldItalic.ttf'),
-      'DM-Sans-Italic': require('@/assets/fonts/DMSans-Italic.ttf'),
       'DM-Sans-Medium': require('@/assets/fonts/DMSans-Medium.ttf'),
-      'DM-Sans-Medium-Italic': require('@/assets/fonts/DMSans-MediumItalic.ttf'),
       'DM-Sans-Regular': require('@/assets/fonts/DMSans-Regular.ttf'),
     });
     setFontLoaded(true);
@@ -34,8 +34,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <MainStack initialRouteName={MainStackTypes.Routes.Onboarding} />
-    </NavigationContainer>
+    <PaperProvider theme={currentTheme}>
+      <NavigationContainer theme={navigationTheme}>
+        <MainStack initialRouteName={MainStackTypes.Routes.Onboarding} />
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
