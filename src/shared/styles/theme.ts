@@ -1,16 +1,24 @@
-import { MD3DarkTheme, MD3LightTheme, Theme } from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 
 import colors from './colors';
-import fonts from './fonts';
-export type ThemeOverride = Theme & {
+export interface ThemeOverride {
   colors: MD3Colors & typeof colors;
-  fonts: typeof fonts;
-};
+  fonts: {
+    primary: {
+      regular: string;
+      medium: string;
+      bold: string;
+    };
+    secondary: {
+      regular: string;
+      light: string;
+      bold: string;
+    };
+  };
+}
 
 const darkTheme: ThemeOverride = {
-  ...MD3DarkTheme,
-  roundness: 2,
   colors: {
     ...MD3DarkTheme.colors,
     ...colors,
@@ -24,15 +32,24 @@ const darkTheme: ThemeOverride = {
     onPrimary: colors.white.primary,
     onSecondary: colors.dark.primary,
     onSurface: colors.white.primary,
-    onBackground: colors.white.primary,
+    onBackground: colors.white.secondary,
     outline: colors.dark.secondary,
   },
-  fonts: fonts,
+  fonts: {
+    primary: {
+      regular: 'DM-Sans-Regular',
+      medium: 'DM-Sans-Medium',
+      bold: 'DM-Sans-Bold',
+    },
+    secondary: {
+      regular: 'Sk-Modernist',
+      light: 'Sk-Modernist-Light',
+      bold: 'Sk-Modernist-Bold',
+    },
+  },
 };
 
 const lightTheme: ThemeOverride = {
-  ...MD3LightTheme,
-  roundness: 2,
   colors: {
     ...colors,
     ...MD3LightTheme.colors,
@@ -46,10 +63,21 @@ const lightTheme: ThemeOverride = {
     onSecondary: colors.white.primary,
     onSurface: colors.darkGrey.secondary,
     surfaceVariant: colors.white.secondary,
-    onBackground: colors.darkGrey.secondary,
+    onBackground: colors.dark.secondary,
     outline: colors.grey.primary,
   },
-  fonts: fonts,
+  fonts: {
+    primary: {
+      regular: 'DM-Sans-Regular',
+      medium: 'DM-Sans-Medium',
+      bold: 'DM-Sans-Bold',
+    },
+    secondary: {
+      regular: 'Sk-Modernist',
+      light: 'Sk-Modernist-Light',
+      bold: 'Sk-Modernist-Bold',
+    },
+  },
 };
 
 export { darkTheme, lightTheme };

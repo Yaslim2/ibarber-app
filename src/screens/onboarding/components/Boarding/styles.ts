@@ -1,10 +1,11 @@
 import { marginStatusBar } from '@/shared/constants';
+import { ThemeOverride } from '@/shared/styles/theme';
 
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.View<{ theme: ThemeOverride }>`
   flex: 1;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.background};
 `;
 
 export const ContentContainer = styled.View`
@@ -29,11 +30,11 @@ export const NextPageButton = styled.TouchableOpacity`
   margin-top: 35px;
 `;
 
-export const TextTitle = styled.Text`
+export const TextTitle = styled.Text<{ theme: ThemeOverride }>`
   font-family: Sk-Modernist-Bold;
   font-size: 20px;
   text-align: center;
-  color: #3b3b3b;
+  color: ${props => props.theme.colors.onBackground};
   margin-top: 20px;
 `;
 

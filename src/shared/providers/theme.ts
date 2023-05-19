@@ -38,6 +38,7 @@ export default function useThemeSelectorProvider(): {
 
     setNavigationTheme({
       ...currentTheme,
+      dark: theme === ThemesEnum.dark,
       colors: {
         background: colorsTransform?.background,
         border: colorsTransform?.onSurface,
@@ -47,7 +48,7 @@ export default function useThemeSelectorProvider(): {
         text: colorsTransform.onBackground,
       },
     });
-  }, [currentTheme]);
+  }, [currentTheme, theme]);
 
   return { currentTheme, navigationTheme };
 }

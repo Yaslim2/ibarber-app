@@ -7,8 +7,7 @@ import BoardingTwo from '@/assets/svg/boarding-two.svg';
 import ButtonBoardingFullPercent from '@/assets/svg/button-boarding-full-percent.svg';
 import ButtonBoardingHalfPercent from '@/assets/svg/button-boarding-half-percent.svg';
 import ButtonBoardingZeroPercent from '@/assets/svg/button-boarding-zero-percent.svg';
-
-import useController from 'src/screens/onboarding/index.controller';
+import useController from '@/screens/onboarding/index.controller';
 
 import {
   Container,

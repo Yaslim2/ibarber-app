@@ -8,7 +8,7 @@ import { ThemeStoreModel, ThemesEnum } from './types';
 const useThemeStore = create(
   persist<ThemeStoreModel>(
     (set, get) => ({
-      theme: null,
+      theme: ThemesEnum.dark,
       getTheme: (): ThemesEnum | null => get().theme,
       setTheme: (theme: ThemesEnum): void => set({ theme }),
       changeTheme: (): void => {
