@@ -5,18 +5,16 @@ import { Theme as ThemeNavigation } from '@react-navigation/native';
 
 import useThemeStore from '@/shared/store/theme';
 import { ThemesEnum } from '@/shared/store/theme/types';
-import { darkTheme, lightTheme } from '@/shared/styles/theme';
+import { ThemeOverride, darkTheme, lightTheme } from '@/shared/styles/theme';
 
 import { shallow } from 'zustand/shallow';
 
 export default function useThemeSelectorProvider(): {
-  currentTheme: typeof darkTheme | typeof lightTheme;
+  currentTheme: ThemeOverride;
   navigationTheme?: ThemeNavigation;
 } {
   const scheme = useColorScheme();
-  const [currentTheme, setCurrentTheme] = useState<
-    typeof darkTheme | typeof lightTheme
-  >(darkTheme);
+  const [currentTheme, setCurrentTheme] = useState<ThemeOverride>(darkTheme);
   const [navigationTheme, setNavigationTheme] = useState<ThemeNavigation>();
 
   const [theme, setTheme] = useThemeStore(

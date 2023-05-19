@@ -5,21 +5,21 @@ import { MD3Typescale } from 'react-native-paper/src/types';
 const fonts: Record<string, MD3Typescale> = {};
 
 const fontSemiBold = Platform.select({
-  ios: 'Elza-SemiBold',
-  android: 'Elza-SemiBold',
-  default: 'Elza-SemiBold',
+  ios: 'DM-Sans-Medium',
+  android: 'DM-Sans-Medium',
+  default: 'DM-Sans-Medium',
 });
 
 const fontBold = Platform.select({
-  ios: 'Elza-Bold',
-  android: 'Elza-Bold',
-  default: 'Elza-Bold',
+  ios: 'DM-Sans-Bold',
+  android: 'DM-Sans-Bold',
+  default: 'DM-Sans-Bold',
 });
 
 const fontRegular = Platform.select({
-  ios: 'Elza-Regular',
-  android: 'Elza-Regular',
-  default: 'Elza-Regular',
+  ios: 'DM-Sans-Regular',
+  android: 'DM-Sans-Regular',
+  default: 'DM-Sans-Regular',
 });
 
 Object.keys(DefaultTheme.fonts).forEach(key => {
@@ -31,7 +31,6 @@ Object.keys(DefaultTheme.fonts).forEach(key => {
 });
 
 const combinedFonts: Partial<MD3Typescale> = {
-  // large
   displayLarge: {
     ...DefaultTheme.fonts.displayLarge,
     fontFamily: fontBold,
@@ -48,7 +47,6 @@ const combinedFonts: Partial<MD3Typescale> = {
     fontFamily: fontBold,
     fontWeight: '600',
   },
-  // medium
   displayMedium: {
     ...DefaultTheme.fonts.displayMedium,
     fontFamily: fontSemiBold,
@@ -64,7 +62,6 @@ const combinedFonts: Partial<MD3Typescale> = {
     fontFamily: fontSemiBold,
     fontWeight: '600',
   },
-  // small
   displaySmall: {
     ...DefaultTheme.fonts.displaySmall,
     fontFamily: fontBold,
@@ -82,7 +79,6 @@ const combinedFonts: Partial<MD3Typescale> = {
     fontFamily: fontSemiBold,
     fontWeight: '600',
   },
-  // body
   bodyLarge: {
     ...DefaultTheme.fonts.bodyLarge,
     fontFamily: 'Elza-Medium',

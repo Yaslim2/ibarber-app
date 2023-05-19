@@ -1,8 +1,14 @@
-import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, Theme } from 'react-native-paper';
+import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 
 import colors from './colors';
+import fonts from './fonts';
+export type ThemeOverride = Theme & {
+  colors: MD3Colors & typeof colors;
+  fonts: typeof fonts;
+};
 
-const darkTheme = {
+const darkTheme: ThemeOverride = {
   ...MD3DarkTheme,
   roundness: 2,
   colors: {
@@ -21,14 +27,15 @@ const darkTheme = {
     onBackground: colors.white.primary,
     outline: colors.dark.secondary,
   },
+  fonts: fonts,
 };
 
-const lightTheme = {
+const lightTheme: ThemeOverride = {
   ...MD3LightTheme,
   roundness: 2,
   colors: {
     ...colors,
-    ...MD3LightTheme,
+    ...MD3LightTheme.colors,
     primary: colors.blue.primary,
     secondary: colors.lightGrey.primary,
     tertiary: colors.lightGrey.tertiary,
@@ -42,6 +49,7 @@ const lightTheme = {
     onBackground: colors.darkGrey.secondary,
     outline: colors.grey.primary,
   },
+  fonts: fonts,
 };
 
 export { darkTheme, lightTheme };

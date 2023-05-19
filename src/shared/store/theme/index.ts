@@ -12,7 +12,7 @@ const useThemeStore = create(
       getTheme: (): ThemesEnum | null => get().theme,
       setTheme: (theme: ThemesEnum): void => set({ theme }),
       changeTheme: (): void => {
-        const currentTheme = get().theme;
+        const { theme: currentTheme } = get();
         const newTheme =
           currentTheme === ThemesEnum.dark ? ThemesEnum.light : ThemesEnum.dark;
 
