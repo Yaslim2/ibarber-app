@@ -38,11 +38,11 @@ export const TextTitle = styled.Text<{ theme: ThemeOverride }>`
   margin-top: 20px;
 `;
 
-export const TextSubtitle = styled.Text`
+export const TextSubtitle = styled.Text<{ theme: ThemeOverride }>`
   font-family: Sk-Modernist;
   font-size: 14px;
   text-align: center;
-  color: #8f8f8f;
+  color: ${props => props.theme.colors.darkGrey};
   margin-top: 20px;
 `;
 
