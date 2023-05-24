@@ -42,7 +42,6 @@ const Login: FC = () => {
                   Email
                 </Text>
               }
-              theme={{ colors: { primary: theme.colors.blue.primary } }}
               style={{
                 height: 56,
                 borderColor: theme.colors.blue.primary,
