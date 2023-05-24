@@ -1,51 +1,71 @@
-import * as React from 'react';
-import { FC } from 'react';
+import React from 'react';
+import PaginationDot from 'react-native-animated-pagination-dot';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import useThemeStore from '@/shared/store/theme';
-import { ThemesEnum } from '@/shared/store/theme/types';
+import BoardingOne from '@/assets/svg/boarding-one.svg';
+import BoardingThree from '@/assets/svg/boarding-three.svg';
+import BoardingTwo from '@/assets/svg/boarding-two.svg';
+import ButtonBoardingFullPercent from '@/assets/svg/button-boarding-full-percent.svg';
+import ButtonBoardingHalfPercent from '@/assets/svg/button-boarding-half-percent.svg';
+import ButtonBoardingZeroPercent from '@/assets/svg/button-boarding-zero-percent.svg';
+import useController from '@/screens/onboarding/index.controller';
+import colors from '@/shared/styles/colors';
 import { OnboardingStackTypes } from '@/shared/types/navigation';
 
-import { shallow } from 'zustand/shallow';
+import {
+  Container,
+  ContentContainer,
+  Content,
+  NextPageContainer,
+  NextPageButton,
+  TextTitle,
+  TextSubtitle,
+  BlankView,
+  CenterView,
+} from './styles';
 
-import Boarding from './components/Boarding';
-import { Container } from './styles';
-
-const Tab = createNativeStackNavigator<OnboardingStackTypes.ParamList>();
-
-const OnboardingScreen: FC = () => {
-  const theme = useThemeStore(state => state.theme, shallow);
+const Boarding: OnboardingStackTypes.ComponentsProps = props => {
+  const { boardingTexts, currentBoard, currentPage, handleNextPage } =
+    useController(props);
 
   return (
     <Container>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          animation: 'slide_from_right',
-          statusBarColor: 'transparent',
-          statusBarTranslucent: true,
-          statusBarStyle:
-            ThemesEnum.dark === theme ? 'light' : ThemesEnum.light,
-        }}
-        initialRouteName={OnboardingStackTypes.Routes.BoardingOne}
-      >
-        <Tab.Screen
-          name={OnboardingStackTypes.Routes.BoardingOne}
-          component={Boarding}
-        />
-        <Tab.Screen
-          name={OnboardingStackTypes.Routes.BoardingTwo}
-          component={Boarding}
-        />
-        <Tab.Screen
-          name={OnboardingStackTypes.Routes.BoardingThree}
-          component={Boarding}
-          options={{ statusBarStyle: 'light' }}
-        />
-      </Tab.Navigator>
+      <ContentContainer>
+        <Content>
+          <BlankView />
+          <BlankView />
+          <CenterView>
+            {currentBoard === 'BoardingOne' ? (
+              <BoardingOne />
+            ) : currentBoard === 'BoardingTwo' ? (
+              <BoardingTwo />
+            ) : (
+              <BoardingThree />
+            )}
+            <TextTitle>{boardingTexts[currentBoard].title}</TextTitle>
+            <TextSubtitle>{boardingTexts[currentBoard].subtitle}</TextSubtitle>
+          </CenterView>
+          <NextPageContainer>
+            <PaginationDot
+              inactiveDotColor={colors.grey.tertiary}
+              activeDotColor={colors.orange.primary}
+              curPage={currentPage}
+              maxPage={3}
+            />
+
+            <NextPageButton onPress={handleNextPage}>
+              {currentBoard === 'BoardingOne' ? (
+                <ButtonBoardingZeroPercent />
+              ) : currentBoard === 'BoardingTwo' ? (
+                <ButtonBoardingHalfPercent />
+              ) : (
+                <ButtonBoardingFullPercent />
+              )}
+            </NextPageButton>
+          </NextPageContainer>
+        </Content>
+      </ContentContainer>
     </Container>
   );
 };
 
-export default OnboardingScreen;
+export default Boarding;

@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const useController = () => {
+import {
+  MainStackTypes,
+  OnboardingStackTypes,
+} from '@/shared/types/navigation';
+
+const useController = ({ navigation }: OnboardingStackTypes.RoutesProps) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [currentBoard, setCurrentBoard] = useState<
     'BoardingOne' | 'BoardingTwo' | 'BoardingThree'
@@ -23,12 +28,26 @@ const useController = () => {
     },
   };
 
+  const handleNextPage = () => {
+    if (currentBoard !== 'BoardingThree' && currentPage !== 2) {
+      setCurrentBoard(
+        currentBoard === 'BoardingOne' ? 'BoardingTwo' : 'BoardingThree',
+      );
+      setCurrentPage(currentPage + 1);
+    } else {
+      navigation.reset({
+        routes: [{ name: MainStackTypes.Routes.Authentication }],
+      });
+    }
+  };
+
   return {
     boardingTexts,
     currentBoard,
     setCurrentBoard,
     currentPage,
     setCurrentPage,
+    handleNextPage,
   };
 };
 

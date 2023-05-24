@@ -3,6 +3,7 @@ import { MD3Colors } from 'react-native-paper/lib/typescript/types';
 
 import colors from './colors';
 export interface ThemeOverride {
+  dark: boolean;
   colors: MD3Colors & typeof colors;
   fonts: {
     primary: {
@@ -19,10 +20,11 @@ export interface ThemeOverride {
 }
 
 const darkTheme: ThemeOverride = {
+  dark: true,
   colors: {
     ...MD3DarkTheme.colors,
     ...colors,
-    primary: colors.blue.primary,
+    primary: colors.orange.primary,
     secondary: colors.lightGrey.secondary,
     tertiary: colors.dark.tertiary,
     surface: colors.dark.primary,
@@ -32,7 +34,7 @@ const darkTheme: ThemeOverride = {
     onPrimary: colors.white.primary,
     onSecondary: colors.dark.primary,
     onSurface: colors.white.primary,
-    onBackground: colors.white.secondary,
+    onBackground: colors.white.primary,
     outline: colors.dark.secondary,
   },
   fonts: {
@@ -50,10 +52,11 @@ const darkTheme: ThemeOverride = {
 };
 
 const lightTheme: ThemeOverride = {
+  dark: false,
   colors: {
     ...colors,
     ...MD3LightTheme.colors,
-    primary: colors.blue.primary,
+    primary: colors.orange.primary,
     secondary: colors.lightGrey.primary,
     tertiary: colors.lightGrey.tertiary,
     surface: colors.white.primary,

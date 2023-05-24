@@ -3,28 +3,42 @@ import { FC } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import AuthenticationScreen from '@/screens/authentication';
 import OnboardingScreen from '@/screens/onboarding';
 
+import useThemeStore from 'src/shared/store/theme';
+import { ThemesEnum } from 'src/shared/store/theme/types';
 import { MainStackTypes } from 'src/shared/types/navigation';
+import { shallow } from 'zustand/shallow';
 
 const Stack = createNativeStackNavigator<MainStackTypes.ParamList>();
 
 const MainStack: FC<{ initialRouteName: MainStackTypes.Routes }> = ({
   initialRouteName,
-}) => (
-  <Stack.Navigator
-    initialRouteName={initialRouteName}
-    screenOptions={{
-      statusBarColor: '#fff',
-      statusBarStyle: 'auto',
-      headerShown: false,
-    }}
-  >
-    <Stack.Screen
-      name={MainStackTypes.Routes.Onboarding}
-      component={OnboardingScreen}
-    />
-  </Stack.Navigator>
-);
+}) => {
+  const theme = useThemeStore(state => state.theme, shallow);
+
+  return (
+    <Stack.Navigator
+      initialRouteName={initialRouteName}
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right',
+        statusBarColor: 'transparent',
+        statusBarTranslucent: true,
+        statusBarStyle: ThemesEnum.dark === theme ? 'light' : ThemesEnum.light,
+      }}
+    >
+      <Stack.Screen
+        name={MainStackTypes.Routes.Onboarding}
+        component={OnboardingScreen}
+      />
+      <Stack.Screen
+        name={MainStackTypes.Routes.Authentication}
+        component={AuthenticationScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 
 export default MainStack;
