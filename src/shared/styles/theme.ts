@@ -29,6 +29,7 @@ const darkTheme: ThemeOverride = {
     tertiary: colors.dark.tertiary,
     surface: colors.dark.primary,
     surfaceVariant: colors.dark.secondary,
+    onSurfaceVariant: colors.white.primary,
     background: colors.dark.primary,
     error: colors.red.secondary,
     onPrimary: colors.white.primary,

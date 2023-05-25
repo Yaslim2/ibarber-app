@@ -20,3 +20,11 @@ export const Content = styled.View`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
+
+export const FormContainer = styled.View`
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const BlankView = styled.View``;

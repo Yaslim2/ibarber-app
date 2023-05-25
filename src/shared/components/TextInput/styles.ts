@@ -9,15 +9,16 @@ export const InputContainer = styled.View`
   width: 100%;
 `;
 
-export const Input = styled(TextInput)`
+export const Input = styled(TextInput)<{ borderColor: string }>`
   height: 56px;
-  border-color: ${props => props.theme.colors.primary};
-  border-width: 1.5;
-  border-radius: 8;
-  border-top-left-radius: 8;
-  border-top-right-radius: 8;
+  border-color: ${props => props.borderColor};
+  border-width: 1.5px;
+  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   overflow: hidden;
   background-color: transparent;
+  color: #fff;
 `;
 
 export const NativeTextInput = styled(NativeInput)`
@@ -28,9 +29,10 @@ export const NativeTextInput = styled(NativeInput)`
 `;
 
 export const LabelText = styled(Text)`
+  font-size: 15px;
   color: ${props =>
     props.theme.dark
       ? props.theme.colors.outline
       : props.theme.colors.grey.secondary};
-  font-family: ${props => props.theme.fonts.secondary.bold};
+  font-family: ${props => props.theme.fonts.secondary.regular};
 `;

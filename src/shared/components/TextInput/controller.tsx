@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -13,14 +14,31 @@ const useTextInputController = ({
   error,
   search,
   value,
+  onBlur,
+  onFocus,
   ...rest
 }: CustomTextInputProps) => {
   const theme = useTheme() as ThemeOverride;
+  const [active, setActive] = useState<boolean>(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [iconType, setIconType] = useState<
     'none' | 'valid' | 'error' | 'password'
   >('none');
   const [iconVariant, setIconVariant] = useState<JSX.Element | string>('');
+
+  const handleFocus = (
+    props: NativeSyntheticEvent<TextInputFocusEventData>,
+  ): void => {
+    setActive(true);
+    onFocus && onFocus(props);
+  };
+
+  const handleBlur = (
+    props: NativeSyntheticEvent<TextInputFocusEventData>,
+  ): void => {
+    setActive(false);
+    onBlur && onBlur(props);
+  };
 
   const handleIconVariant = React.useCallback((): JSX.Element | string => {
     if (value && value.length > 0) {
@@ -31,7 +49,7 @@ const useTextInputController = ({
               icon={(): JSX.Element => (
                 <AntDesign
                   name="checkcircleo"
-                  size={24}
+                  size={20}
                   color={theme?.colors?.primary || 'blue'}
                 />
               )}
@@ -44,7 +62,7 @@ const useTextInputController = ({
               icon={(): JSX.Element => (
                 <AntDesign
                   name="closecircleo"
-                  size={24}
+                  size={20}
                   color={theme?.colors?.error || 'red'}
                 />
               )}
@@ -58,15 +76,15 @@ const useTextInputController = ({
               icon={(): JSX.Element =>
                 secureTextEntry ? (
                   <EyeWill
-                    width={24}
-                    height={24}
+                    width={20}
+                    height={20}
                     fill={theme?.colors?.primary}
                   />
                 ) : (
                   <AntDesign
                     name="eyeo"
-                    size={24}
-                    color={theme?.colors?.primary || 'blue'}
+                    size={20}
+                    color={theme?.colors?.primary}
                   />
                 )
               }
@@ -107,6 +125,9 @@ const useTextInputController = ({
   return {
     iconVariant,
     secureTextEntry,
+    active,
+    handleBlur,
+    handleFocus,
   };
 };
 
