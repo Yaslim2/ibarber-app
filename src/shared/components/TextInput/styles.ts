@@ -1,8 +1,6 @@
 import { TextInput as NativeInput } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { ThemeOverride } from '@/shared/styles/theme';
-
 import styled from 'styled-components/native';
 
 export const InputContainer = styled.View`
@@ -29,7 +27,7 @@ export const NativeTextInput = styled(NativeInput)`
   width: 100%;
 `;
 
-export const LabelText = styled(Text)<{ theme: ThemeOverride }>`
+export const LabelText = styled(Text)`
   color: ${props =>
     props.theme.dark
       ? props.theme.colors.outline

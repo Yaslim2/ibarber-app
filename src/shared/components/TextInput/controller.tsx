@@ -7,14 +7,14 @@ import { ThemeOverride } from '@/shared/styles/theme';
 
 import { useTheme } from 'styled-components';
 
-import { CustomTextProps } from './types';
+import { CustomTextInputProps } from './types';
 
 const useTextInputController = ({
   error,
   search,
   value,
   ...rest
-}: CustomTextProps) => {
+}: CustomTextInputProps) => {
   const theme = useTheme() as ThemeOverride;
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [iconType, setIconType] = useState<

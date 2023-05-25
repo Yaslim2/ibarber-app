@@ -1,7 +1,7 @@
 import { Animated, ViewStyle } from 'react-native';
 import ComponentProps = Animated.ComponentProps;
 import { TextInput } from 'react-native-paper';
-export type CustomTextProps = {
+export type CustomTextInputProps = {
   containerStyle?: ViewStyle;
   disableIcon?: boolean;
   search?: boolean;
