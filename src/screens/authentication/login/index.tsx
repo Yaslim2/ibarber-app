@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { View } from 'react-native';
-import { Button } from 'react-native-paper';
 
 import LogoDark from '@/assets/svg/logo-dark.svg';
 import LogoWhite from '@/assets/svg/logo.svg';
+import Button from '@/shared/components/Button';
+import Text from '@/shared/components/Text';
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { ThemeOverride } from '@/shared/styles/theme';
 
@@ -17,7 +17,11 @@ import {
   ContainerKeyboardAwareView,
   Content,
   ContentContainer,
+  DividerContainer,
   FormContainer,
+  buttonStyle,
+  Line,
+  ContainerButton,
 } from './styles';
 
 const Login: FC = () => {
@@ -56,61 +60,34 @@ const Login: FC = () => {
           </FormContainer>
           <Button
             mode="contained"
-            dark={theme.dark}
             buttonColor={theme.colors.primary}
-            contentStyle={{
-              borderRadius: 8,
-              width: '100%',
-              maxHeight: 54,
-              minHeight: 54,
-            }}
-            style={{
-              borderRadius: 8,
-              width: '100%',
-            }}
             icon={EmailIcon}
-            onPress={() => console.log('Pressed')}
           >
             Iniciar sessão
           </Button>
-          <View style={{ width: '100%', flexDirection: 'row', gap: 19 }}>
+          <DividerContainer>
+            <Line />
+            <Text font="secondary" weight="bold">
+              ou
+            </Text>
+            <Line />
+          </DividerContainer>
+          <ContainerButton>
             <Button
-              mode="contained"
-              dark={theme.dark}
               buttonColor={theme.colors.primary}
-              contentStyle={{
-                borderRadius: 8,
-                maxHeight: 54,
-                minHeight: 54,
-              }}
-              style={{
-                borderRadius: 8,
-                width: '47%',
-              }}
               icon={GoogleIcon}
-              onPress={() => console.log('Pressed')}
+              style={buttonStyle}
             >
               Iniciar sessão
             </Button>
             <Button
-              mode="contained"
-              dark={theme.dark}
               buttonColor={theme.colors.primary}
-              contentStyle={{
-                borderRadius: 8,
-                maxHeight: 54,
-                minHeight: 54,
-              }}
-              style={{
-                borderRadius: 8,
-                width: '47%',
-              }}
               icon={AppleIcon}
-              onPress={() => console.log('Pressed')}
+              style={buttonStyle}
             >
               Iniciar sessão
             </Button>
-          </View>
+          </ContainerButton>
         </Content>
       </ContentContainer>
     </ContainerKeyboardAwareView>
