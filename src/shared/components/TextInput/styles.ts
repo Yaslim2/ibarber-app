@@ -1,6 +1,7 @@
 import { TextInput as NativeInput } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 
+import Text from 'src/shared/components/Text';
 import styled from 'styled-components/native';
 
 export const InputContainer = styled.View`
@@ -30,9 +31,4 @@ export const NativeTextInput = styled(NativeInput)`
 
 export const LabelText = styled(Text)`
   font-size: 15px;
-  color: ${props =>
-    props.theme.dark
-      ? props.theme.colors.outline
-      : props.theme.colors.grey.secondary};
-  font-family: ${props => props.theme.fonts.secondary.regular};
 `;

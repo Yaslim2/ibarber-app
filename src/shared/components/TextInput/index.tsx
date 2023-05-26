@@ -51,7 +51,19 @@ const TextInput: FC<CustomTextInputProps> = props => {
         underlineColor="transparent"
         underlineColorAndroid="transparent"
         right={!props.disableIcon && iconVariant}
-        label={props.label && <LabelText>{props.label}</LabelText>}
+        label={
+          props.label && (
+            <LabelText
+              font="secondary"
+              weight="regular"
+              color={
+                theme.dark ? theme.colors.outline : theme.colors.grey.secondary
+              }
+            >
+              {props.label}
+            </LabelText>
+          )
+        }
         secureTextEntry={props.secureTextEntry && secureTextEntry}
         style={props.style}
         mode="flat"

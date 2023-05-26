@@ -9,7 +9,10 @@ import ButtonBoardingHalfPercent from '@/assets/svg/button-boarding-half-percent
 import ButtonBoardingZeroPercent from '@/assets/svg/button-boarding-zero-percent.svg';
 import useController from '@/screens/onboarding/index.controller';
 import colors from '@/shared/styles/colors';
+import { ThemeOverride } from '@/shared/styles/theme';
 import { OnboardingStackTypes } from '@/shared/types/navigation';
+
+import { useTheme } from 'styled-components';
 
 import {
   Container,
@@ -24,6 +27,7 @@ import {
 } from './styles';
 
 const Boarding: OnboardingStackTypes.ComponentsProps = props => {
+  const theme = useTheme() as ThemeOverride;
   const { boardingTexts, currentBoard, currentPage, handleNextPage } =
     useController(props);
 
@@ -41,8 +45,16 @@ const Boarding: OnboardingStackTypes.ComponentsProps = props => {
             ) : (
               <BoardingThree />
             )}
-            <TextTitle>{boardingTexts[currentBoard].title}</TextTitle>
-            <TextSubtitle>{boardingTexts[currentBoard].subtitle}</TextSubtitle>
+            <TextTitle font="secondary" weight="bold">
+              {boardingTexts[currentBoard].title}
+            </TextTitle>
+            <TextSubtitle
+              font="secondary"
+              weight="regular"
+              color={theme.colors.darkGrey.primary}
+            >
+              {boardingTexts[currentBoard].subtitle}
+            </TextSubtitle>
           </CenterView>
           <NextPageContainer>
             <PaginationDot

@@ -1,3 +1,4 @@
+import Text from '@/shared/components/Text';
 import { marginStatusBar } from '@/shared/constants';
 import { ThemeOverride } from '@/shared/styles/theme';
 
@@ -29,19 +30,15 @@ export const NextPageButton = styled.TouchableOpacity`
   margin-top: 35px;
 `;
 
-export const TextTitle = styled.Text<{ theme: ThemeOverride }>`
-  font-family: ${props => props.theme.fonts.secondary.bold};
+export const TextTitle = styled(Text)`
   font-size: 20px;
   text-align: center;
-  color: ${props => props.theme.colors.onBackground};
   margin-top: 20px;
 `;
 
-export const TextSubtitle = styled.Text<{ theme: ThemeOverride }>`
-  font-family: ${props => props.theme.fonts.secondary.regular};
+export const TextSubtitle = styled(Text)`
   font-size: 14px;
   text-align: center;
-  color: ${props => props.theme.colors.darkGrey.primary};
   margin-top: 20px;
 `;
 

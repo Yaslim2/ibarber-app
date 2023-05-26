@@ -1,13 +1,14 @@
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 import { marginStatusBar } from '@/shared/constants';
-import { ThemeOverride } from '@/shared/styles/theme';
 
 import styled from 'styled-components/native';
 
-export const Container = styled.View<{ theme: ThemeOverride }>`
+export const ContainerKeyboardAwareView = styled(KeyboardAwareScrollView)`
   flex: 1;
 `;
 
-export const ContentContainer = styled.View`
+export const ContentContainer = styled.ScrollView`
   flex: 1;
   margin-top: ${marginStatusBar};
   margin-left: 20px;
@@ -18,6 +19,7 @@ export const Content = styled.View`
   flex: 1;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 20px;
 `;
 
