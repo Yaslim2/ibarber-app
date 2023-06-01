@@ -23,7 +23,10 @@ export const Content = styled.View`
 `;
 
 export const NextPageContainer = styled.View`
+  width: 100%;
   align-items: center;
+  border-top-left-radius: 8px;
+  background-color: #fff;
 `;
 
 export const NextPageButton = styled.TouchableOpacity`
@@ -46,4 +49,9 @@ export const BlankView = styled.View``;
 
 export const CenterView = styled.View`
   align-items: center;
+`;
+
+export const ButtonContainer = styled.View`
+  gap: 15px;
+  width: 100%;
 `;

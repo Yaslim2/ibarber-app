@@ -7,7 +7,10 @@ import BoardingTwo from '@/assets/svg/boarding-two.svg';
 import ButtonBoardingFullPercent from '@/assets/svg/button-boarding-full-percent.svg';
 import ButtonBoardingHalfPercent from '@/assets/svg/button-boarding-half-percent.svg';
 import ButtonBoardingZeroPercent from '@/assets/svg/button-boarding-zero-percent.svg';
+import LogoDark from '@/assets/svg/logo-dark.svg';
+import LogoWhite from '@/assets/svg/logo.svg';
 import useController from '@/screens/onboarding/index.controller';
+import Button from '@/shared/components/Button';
 import colors from '@/shared/styles/colors';
 import { ThemeOverride } from '@/shared/styles/theme';
 import { OnboardingStackTypes } from '@/shared/types/navigation';
@@ -24,6 +27,7 @@ import {
   TextSubtitle,
   BlankView,
   CenterView,
+  ButtonContainer,
 } from './styles';
 
 const Boarding: OnboardingStackTypes.ComponentsProps = props => {
@@ -35,15 +39,23 @@ const Boarding: OnboardingStackTypes.ComponentsProps = props => {
     <Container>
       <ContentContainer>
         <Content>
-          <BlankView />
-          <BlankView />
+          {currentBoard !== 'GetStarted' && (
+            <>
+              <BlankView />
+              <BlankView />
+            </>
+          )}
           <CenterView>
             {currentBoard === 'BoardingOne' ? (
               <BoardingOne />
             ) : currentBoard === 'BoardingTwo' ? (
               <BoardingTwo />
-            ) : (
+            ) : currentBoard === 'BoardingThree' ? (
               <BoardingThree />
+            ) : theme.dark ? (
+              <LogoDark />
+            ) : (
+              <LogoWhite />
             )}
             <TextTitle font="secondary" weight="bold">
               {boardingTexts[currentBoard].title}
@@ -57,23 +69,40 @@ const Boarding: OnboardingStackTypes.ComponentsProps = props => {
             </TextSubtitle>
           </CenterView>
           <NextPageContainer>
-            <PaginationDot
-              inactiveDotColor={colors.grey.tertiary}
-              activeDotColor={colors.orange.primary}
-              curPage={currentPage}
-              maxPage={3}
-            />
+            {currentBoard !== 'GetStarted' ? (
+              <>
+                <PaginationDot
+                  inactiveDotColor={colors.grey.tertiary}
+                  activeDotColor={colors.orange.primary}
+                  curPage={currentPage}
+                  maxPage={3}
+                />
 
-            <NextPageButton onPress={handleNextPage}>
-              {currentBoard === 'BoardingOne' ? (
-                <ButtonBoardingZeroPercent />
-              ) : currentBoard === 'BoardingTwo' ? (
-                <ButtonBoardingHalfPercent />
-              ) : (
-                <ButtonBoardingFullPercent />
-              )}
-            </NextPageButton>
+                <NextPageButton onPress={handleNextPage}>
+                  {currentBoard === 'BoardingOne' ? (
+                    <ButtonBoardingZeroPercent />
+                  ) : currentBoard === 'BoardingTwo' ? (
+                    <ButtonBoardingHalfPercent />
+                  ) : (
+                    <ButtonBoardingFullPercent />
+                  )}
+                </NextPageButton>
+              </>
+            ) : (
+              <ButtonContainer>
+                <Button
+                  onPress={handleNextPage}
+                  buttonColor={theme.colors.primary}
+                >
+                  Iniciar sessão
+                </Button>
+                <Button mode="outlined" textColor={theme.colors.white.primary}>
+                  Criar uma conta
+                </Button>
+              </ButtonContainer>
+            )}
           </NextPageContainer>
+          {currentBoard === 'GetStarted' && <BlankView />}
         </Content>
       </ContentContainer>
     </Container>

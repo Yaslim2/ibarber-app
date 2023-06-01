@@ -58,11 +58,7 @@ const Login: FC = () => {
               />
             </FormProvider>
           </FormContainer>
-          <Button
-            mode="contained"
-            buttonColor={theme.colors.primary}
-            icon={EmailIcon}
-          >
+          <Button buttonColor={theme.colors.primary} icon={EmailIcon}>
             Iniciar sessão
           </Button>
           <DividerContainer>

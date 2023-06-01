@@ -8,7 +8,7 @@ import {
 const useController = ({ navigation }: OnboardingStackTypes.RoutesProps) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [currentBoard, setCurrentBoard] = useState<
-    'BoardingOne' | 'BoardingTwo' | 'BoardingThree'
+    'BoardingOne' | 'BoardingTwo' | 'BoardingThree' | 'GetStarted'
   >('BoardingOne');
   const boardingTexts = {
     BoardingOne: {
@@ -26,12 +26,21 @@ const useController = ({ navigation }: OnboardingStackTypes.RoutesProps) => {
       subtitle:
         'Sinta-se à vontade para fazer o agendamento e aguardar sua vez com o iBarber',
     },
+    GetStarted: {
+      title: 'Pronto para começar?',
+      subtitle:
+        'Cadastre-se ou entre em sua conta para aproveitar os benefícios do iBarber.',
+    },
   };
 
   const handleNextPage = () => {
-    if (currentBoard !== 'BoardingThree' && currentPage !== 2) {
+    if (currentBoard !== 'GetStarted' && currentPage !== 3) {
       setCurrentBoard(
-        currentBoard === 'BoardingOne' ? 'BoardingTwo' : 'BoardingThree',
+        currentBoard === 'BoardingOne'
+          ? 'BoardingTwo'
+          : currentBoard === 'BoardingTwo'
+          ? 'BoardingThree'
+          : 'GetStarted',
       );
       setCurrentPage(currentPage + 1);
     } else {
