@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import React from 'react';
+import { FormProvider } from 'react-hook-form';
 
 import LogoDark from '@/assets/svg/logo-dark.svg';
 import LogoWhite from '@/assets/svg/logo.svg';
@@ -7,12 +7,14 @@ import Button from '@/shared/components/Button';
 import Text from '@/shared/components/Text';
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { ThemeOverride } from '@/shared/styles/theme';
+import { MainStackTypes } from '@/shared/types/navigation';
 
 import { useTheme } from 'styled-components';
 
 import AppleIcon from './components/AppleIcon';
 import EmailIcon from './components/EmailIcon';
 import GoogleIcon from './components/GoogleIcon';
+import useController from './index.controller';
 import {
   ContainerKeyboardAwareView,
   Content,
@@ -24,13 +26,11 @@ import {
   ContainerButton,
 } from './styles';
 
-const Login: FC = () => {
+const Login: MainStackTypes.ComponentProps<
+  MainStackTypes.Routes.Login
+> = props => {
   const theme = useTheme() as ThemeOverride;
-  const { ...methods } = useForm({
-    // resolver: yupResolver(formValidationSchema),
-    defaultValues: { email: '', password: '' },
-    mode: 'onChange',
-  });
+  const { methods } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -84,6 +84,16 @@ const Login: FC = () => {
               Iniciar sessão
             </Button>
           </ContainerButton>
+          <Text
+            underline
+            color={
+              theme.dark ? theme.colors.outline : theme.colors.grey.secondary
+            }
+            font="secondary"
+            weight="medium"
+          >
+            Esqueceu sua senha?
+          </Text>
         </Content>
       </ContentContainer>
     </ContainerKeyboardAwareView>

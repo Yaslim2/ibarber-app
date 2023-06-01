@@ -3,8 +3,9 @@ import { FC } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import AuthenticationScreen from '@/screens/authentication';
+import LoginScreen from '@/screens/login';
 import OnboardingScreen from '@/screens/onboarding';
+import SignUp from '@/screens/sign-up';
 
 import useThemeStore from 'src/shared/store/theme';
 import { ThemesEnum } from 'src/shared/store/theme/types';
@@ -34,9 +35,10 @@ const MainStack: FC<{ initialRouteName: MainStackTypes.Routes }> = ({
         component={OnboardingScreen}
       />
       <Stack.Screen
-        name={MainStackTypes.Routes.Authentication}
-        component={AuthenticationScreen}
+        name={MainStackTypes.Routes.Login}
+        component={LoginScreen}
       />
+      <Stack.Screen name={MainStackTypes.Routes.SignUp} component={SignUp} />
     </Stack.Navigator>
   );
 };

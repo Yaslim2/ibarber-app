@@ -11,11 +11,12 @@ type ParamListFromEnum<T extends string> = Record<
 export namespace MainStackTypes {
   export enum Routes {
     Onboarding = 'Onboarding',
-    Authentication = 'Authentication',
+    Login = 'Login',
+    SignUp = 'SignUp',
   }
 
   export interface ParamList extends ParamListFromEnum<Routes> {
-    [Routes.Authentication]: NavigatorScreenParams<AuthenticationStackTypes.ParamList>;
+    [Routes.SignUp]: NavigatorScreenParams<SignUpStackTypes.ParamList>;
   }
   export type RouteProps<Route extends Routes> = NativeStackScreenProps<
     ParamList,
@@ -24,26 +25,19 @@ export namespace MainStackTypes {
   export type ComponentProps<Route extends Routes> = FC<RouteProps<Route>>;
 }
 
-export namespace AuthenticationStackTypes {
+export namespace SignUpStackTypes {
   export enum Routes {
-    Login = 'Login',
-    SignUp = 'SignUp',
-    ForgotPassword = 'ForgotPassword',
-    CreatePassword = 'CreatePassword',
+    SetUserInfo = 'SetUserInfo',
+    SetProfileImage = 'SetProfileImage',
+    SetPhoneNumber = 'SetPhoneNumber',
     VerificationCode = 'VerificationCode',
+    Success = 'Success',
   }
 
   export type ParamList = ParamListFromEnum<Routes>;
-  export type RoutesProps = NativeStackScreenProps<ParamList>;
-  export type ComponentsProps = FC<RoutesProps>;
-}
-
-export namespace OnboardingStackTypes {
-  export enum Routes {
-    Boarding = 'Boarding',
-  }
-
-  export type ParamList = ParamListFromEnum<Routes>;
-  export type RoutesProps = NativeStackScreenProps<ParamList>;
-  export type ComponentsProps = FC<RoutesProps>;
+  export type RouteProps<Route extends Routes> = NativeStackScreenProps<
+    ParamList,
+    Route
+  >;
+  export type ComponentProps<Route extends Routes> = FC<RouteProps<Route>>;
 }

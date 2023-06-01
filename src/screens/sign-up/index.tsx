@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 
 const SignUp: FC = () => (
   <View>
-    <Text>oi</Text>
+    <Text>oieeeeeeeeeeeeeeeeeee</Text>
   </View>
 );
 

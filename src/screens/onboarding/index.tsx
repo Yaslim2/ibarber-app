@@ -13,7 +13,7 @@ import useController from '@/screens/onboarding/index.controller';
 import Button from '@/shared/components/Button';
 import colors from '@/shared/styles/colors';
 import { ThemeOverride } from '@/shared/styles/theme';
-import { OnboardingStackTypes } from '@/shared/types/navigation';
+import { MainStackTypes } from '@/shared/types/navigation';
 
 import { useTheme } from 'styled-components';
 
@@ -30,7 +30,9 @@ import {
   ButtonContainer,
 } from './styles';
 
-const Boarding: OnboardingStackTypes.ComponentsProps = props => {
+const Boarding: MainStackTypes.ComponentProps<
+  MainStackTypes.Routes.Onboarding
+> = props => {
   const theme = useTheme() as ThemeOverride;
   const { boardingTexts, currentBoard, currentPage, handleNextPage } =
     useController(props);
@@ -78,7 +80,7 @@ const Boarding: OnboardingStackTypes.ComponentsProps = props => {
                   maxPage={3}
                 />
 
-                <NextPageButton onPress={handleNextPage}>
+                <NextPageButton onPress={handleNextPage.bind(this, undefined)}>
                   {currentBoard === 'BoardingOne' ? (
                     <ButtonBoardingZeroPercent />
                   ) : currentBoard === 'BoardingTwo' ? (
@@ -91,12 +93,16 @@ const Boarding: OnboardingStackTypes.ComponentsProps = props => {
             ) : (
               <ButtonContainer>
                 <Button
-                  onPress={handleNextPage}
+                  onPress={handleNextPage.bind(this, 'Login')}
                   buttonColor={theme.colors.primary}
                 >
                   Iniciar sessão
                 </Button>
-                <Button mode="outlined" textColor={theme.colors.white.primary}>
+                <Button
+                  onPress={handleNextPage.bind(this, 'SignUp')}
+                  mode="outlined"
+                  textColor={theme.colors.white.primary}
+                >
                   Criar uma conta
                 </Button>
               </ButtonContainer>
