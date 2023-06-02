@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from '@/screens/login';
 import OnboardingScreen from '@/screens/onboarding';
-import SignUp from '@/screens/sign-up';
+import SignUpScreen from '@/screens/sign-up';
 
 import useThemeStore from 'src/shared/store/theme';
 import { ThemesEnum } from 'src/shared/store/theme/types';
@@ -38,7 +38,10 @@ const MainStack: FC<{ initialRouteName: MainStackTypes.Routes }> = ({
         name={MainStackTypes.Routes.Login}
         component={LoginScreen}
       />
-      <Stack.Screen name={MainStackTypes.Routes.SignUp} component={SignUp} />
+      <Stack.Screen
+        name={MainStackTypes.Routes.SignUp}
+        component={SignUpScreen}
+      />
     </Stack.Navigator>
   );
 };

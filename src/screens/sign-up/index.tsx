@@ -1,11 +1,24 @@
-import React, { FC } from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import * as React from 'react';
 
-const SignUp: FC = () => (
-  <View>
-    <Text>oieeeeeeeeeeeeeeeeeee</Text>
-  </View>
-);
+import { MainStackTypes } from '@/shared/types/navigation';
 
-export default SignUp;
+import SignUpStack from './components/stack';
+import useController from './index.controller';
+import { Container } from './styles';
+
+const SignUpScreen: MainStackTypes.ComponentProps<
+  MainStackTypes.Routes.SignUp
+> = ({ navigation, route }) => {
+  const { routeName } = useController({
+    navigation,
+    route,
+  });
+
+  return (
+    <Container routeName={routeName}>
+      <SignUpStack />
+    </Container>
+  );
+};
+
+export default SignUpScreen;
