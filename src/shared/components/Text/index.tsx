@@ -16,7 +16,7 @@ const Text: FC<CustomTextProps> = ({
       : font === 'secondary' && props.weight === 'medium'
       ? 'regular'
       : props.weight;
-  const size = props.size + 'px';
+  const size = props.size ? props.size + 'px' : undefined;
 
   return (
     <CustomText

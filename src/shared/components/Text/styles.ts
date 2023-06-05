@@ -15,5 +15,5 @@ export const CustomText = styled(Text)<{
   color: ${props => props.color || props.theme.colors.onBackground};
   font-family: ${props => props.theme.fonts[props.font][props.weight]};
   text-decoration-line: ${props => (props.underline ? 'underline' : 'none')};
-  font-size: ${props => (props.size ? props.size : undefined)};
+  font-size: ${props => (props.size ? props.size : '12px')};
 `;

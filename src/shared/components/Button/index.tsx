@@ -16,6 +16,8 @@ const Button: FC<CustomButtonProps> = props => {
     colors: {
       ...DefaultTheme.colors,
       outline: theme.colors.white.primary,
+      surfaceDisabled: theme.colors.dark.secondary,
+      onSurfaceDisabled: theme.colors.dark.primary,
     },
     fonts: {
       ...DefaultTheme.fonts,
