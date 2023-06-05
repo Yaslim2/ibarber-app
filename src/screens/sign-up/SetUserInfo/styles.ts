@@ -9,6 +9,7 @@ export const FormContainer = styled.View`
 
 export const ContainerKeyboardAwareView = styled(KeyboardAwareScrollView)`
   flex: 1;
+  margin-top: 20px;
 `;
 
 export const Content = styled.View`

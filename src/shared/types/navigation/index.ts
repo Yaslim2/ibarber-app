@@ -30,7 +30,6 @@ export namespace SignUpStackTypes {
     SetUserInfo = 'SetUserInfo',
     SetProfileImage = 'SetProfileImage',
     SetPhoneNumber = 'SetPhoneNumber',
-    VerificationCode = 'VerificationCode',
     Success = 'Success',
   }
 

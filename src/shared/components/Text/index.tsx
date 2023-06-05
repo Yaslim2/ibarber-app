@@ -16,6 +16,7 @@ const Text: FC<CustomTextProps> = ({
       : font === 'secondary' && props.weight === 'medium'
       ? 'regular'
       : props.weight;
+  const size = props.size + 'px';
 
   return (
     <CustomText
@@ -24,6 +25,7 @@ const Text: FC<CustomTextProps> = ({
       color={color}
       weight={weight}
       style={style}
+      size={size}
     >
       {children}
     </CustomText>

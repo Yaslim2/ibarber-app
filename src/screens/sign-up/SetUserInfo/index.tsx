@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormProvider } from 'react-hook-form';
 
-import Text from '@/shared/components/Text';
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
@@ -20,14 +19,6 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
       showsVerticalScrollIndicator={false}
     >
       <Content>
-        <Text
-          style={{ fontSize: 17, textAlign: 'center' }}
-          font="secondary"
-          weight="bold"
-        >
-          Olá!{'\n'}Precisamos de algumas informações para realizar o seu
-          cadastro.{' '}
-        </Text>
         <FormProvider {...methods}>
           <ControlledTextInput
             label="Nome completo"

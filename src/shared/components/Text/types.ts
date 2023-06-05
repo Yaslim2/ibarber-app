@@ -7,4 +7,5 @@ export type CustomTextProps = {
   weight: 'light' | 'regular' | 'medium' | 'bold';
   underline?: boolean;
   color?: string;
+  size?: number;
 } & ComponentProps<typeof PaperText>;

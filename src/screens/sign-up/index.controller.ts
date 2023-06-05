@@ -22,9 +22,6 @@ const useController = ({
       case SignUpStackTypes.Routes.SetPhoneNumber:
         navigation.navigate(SignUpStackTypes.Routes.SetProfileImage);
         break;
-      case SignUpStackTypes.Routes.VerificationCode:
-        navigation.navigate(SignUpStackTypes.Routes.SetPhoneNumber);
-        break;
       default:
         handleClose();
         break;
