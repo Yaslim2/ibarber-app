@@ -38,7 +38,7 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
             label="Nome completo"
             name="fullname"
             autoCapitalize="words"
-            keyboardType="email-address"
+            keyboardType="default"
           />
           <ControlledTextInput
             label="E-mail"
@@ -60,7 +60,10 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
             secureTextEntry={true}
           />
         </FormProvider>
-        <Button disabled buttonColor={theme.colors.primary}>
+        <Button
+          disabled={!methods.formState.isValid}
+          buttonColor={theme.colors.primary}
+        >
           Avançar
         </Button>
       </Content>
