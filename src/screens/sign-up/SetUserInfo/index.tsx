@@ -9,6 +9,7 @@ import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import { useTheme } from 'styled-components';
 
+import ValidPassword from './components/valid-password';
 import useController from './index.controller';
 import { ContainerKeyboardAwareView, Content, TitleContainer } from './styles';
 
@@ -39,10 +40,12 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
             name="fullname"
             autoCapitalize="words"
             keyboardType="default"
+            error={Boolean(methods.formState.errors.fullname)}
           />
           <ControlledTextInput
             label="E-mail"
             name="email"
+            error={Boolean(methods.formState.errors.email)}
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
@@ -51,15 +54,18 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
             name="password"
             autoCapitalize="none"
             label="Senha"
+            error={Boolean(methods.formState.errors.password)}
             secureTextEntry={true}
           />
           <ControlledTextInput
             name="passwordConfirmation"
             autoCapitalize="none"
+            error={Boolean(methods.formState.errors.passwordConfirmation)}
             label="Confirmar senha"
             secureTextEntry={true}
           />
         </FormProvider>
+        <ValidPassword password={methods.watch('password')} />
         <Button
           disabled={!methods.formState.isValid}
           buttonColor={theme.colors.primary}
