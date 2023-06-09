@@ -5,7 +5,9 @@ import { MainStackTypes } from '@/shared/types/navigation';
 const useController = ({
   navigation,
 }: MainStackTypes.RouteProps<MainStackTypes.Routes.Login>) => {
-  console.warn(navigation);
+  const goBack = (): void => {
+    navigation.reset({ routes: [{ name: MainStackTypes.Routes.Onboarding }] });
+  };
 
   const { ...methods } = useForm({
     // resolver: yupResolver(formValidationSchema),
@@ -13,7 +15,7 @@ const useController = ({
     mode: 'onChange',
   });
 
-  return { methods };
+  return { methods, goBack };
 };
 
 export default useController;

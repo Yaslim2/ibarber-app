@@ -4,15 +4,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import Text from '@/shared/components/Text';
+import useStepsStore from '@/shared/store/steps';
 import { ThemeOverride } from '@/shared/styles/theme';
 import { MainStackTypes, SignUpStackTypes } from '@/shared/types/navigation';
 
 import { useTheme } from 'styled-components';
 
-const useController = ({
+const useSignUpController = ({
   navigation,
   route,
 }: MainStackTypes.RouteProps<MainStackTypes.Routes.SignUp>) => {
+  const backStepPosition = useStepsStore(state => state.backStepPosition);
   const theme = useTheme() as ThemeOverride;
   const stepsStyle = {
     stepIndicatorSize: 35,
@@ -51,6 +53,9 @@ const useController = ({
         );
       }
       case 1: {
+        return <MaterialCommunityIcons color={color} size={18} name="lock" />;
+      }
+      case 2: {
         return (
           <MaterialCommunityIcons
             color={color}
@@ -59,10 +64,10 @@ const useController = ({
           />
         );
       }
-      case 2: {
+      case 3: {
         return <MaterialCommunityIcons color={color} size={18} name="camera" />;
       }
-      case 3:
+      case 4:
         return <MaterialCommunityIcons color={color} size={15} name="check" />;
       default: {
         break;
@@ -87,7 +92,7 @@ const useController = ({
         : theme.colors.orange.primary;
 
     return (
-      <Text font="secondary" weight="bold" color={color} size={13}>
+      <Text font="secondary" weight="bold" color={color} size={12}>
         {label}
       </Text>
     );
@@ -102,11 +107,17 @@ const useController = ({
       case SignUpStackTypes.Routes.SetUserInfo:
         handleClose();
         break;
-      case SignUpStackTypes.Routes.SetProfileImage:
+      case SignUpStackTypes.Routes.SetPassword:
         navigation.navigate(SignUpStackTypes.Routes.SetUserInfo);
+        backStepPosition();
+        break;
+      case SignUpStackTypes.Routes.SetProfileImage:
+        navigation.navigate(SignUpStackTypes.Routes.SetPassword);
+        backStepPosition();
         break;
       case SignUpStackTypes.Routes.SetPhoneNumber:
         navigation.navigate(SignUpStackTypes.Routes.SetProfileImage);
+        backStepPosition();
         break;
       default:
         handleClose();
@@ -123,4 +134,4 @@ const useController = ({
   };
 };
 
-export default useController;
+export default useSignUpController;

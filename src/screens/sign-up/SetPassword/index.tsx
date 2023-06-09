@@ -9,15 +9,15 @@ import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import { useTheme } from 'styled-components';
 
+import ValidPassword from './components/valid-password';
 import useController from './index.controller';
 import { ContainerKeyboardAwareView, Content, TitleContainer } from './styles';
 
-const SetUserInfo: SignUpStackTypes.ComponentProps<
-  SignUpStackTypes.Routes.SetUserInfo
+const SetPassword: SignUpStackTypes.ComponentProps<
+  SignUpStackTypes.Routes.SetPassword
 > = props => {
   const theme = useTheme() as ThemeOverride;
-
-  const { methods, handleNext, isLoading } = useController(props);
+  const { methods, isLoading, handleNext } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -31,26 +31,31 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
             {'Olá!'}
           </Text>
           <Text size={20} font="primary" weight="light">
-            {'Precisamos de suas informações\npara continuar com seu cadastro'}
+            {
+              'Temos algumas regras específicas para deixar a sua senha mais segura'
+            }
           </Text>
         </TitleContainer>
         <FormProvider {...methods}>
           <ControlledTextInput
-            label="Nome completo"
-            name="fullname"
-            autoCapitalize="words"
-            keyboardType="default"
-            error={Boolean(methods.formState.errors.fullname)}
+            name="password"
+            autoCapitalize="none"
+            label="Senha"
+            error={Boolean(methods.formState.errors.password)}
+            secureTextEntry={true}
           />
           <ControlledTextInput
-            label="E-mail"
-            name="email"
-            error={Boolean(methods.formState.errors.email)}
+            name="passwordConfirmation"
             autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
+            error={Boolean(methods.formState.errors.passwordConfirmation)}
+            label="Confirmar senha"
+            secureTextEntry={true}
           />
         </FormProvider>
+        <ValidPassword
+          password={methods.watch('password')}
+          confirmPassword={methods.watch('passwordConfirmation')}
+        />
         <Button
           loading={isLoading}
           onPress={methods.handleSubmit(handleNext)}
@@ -64,4 +69,4 @@ const SetUserInfo: SignUpStackTypes.ComponentProps<
   );
 };
 
-export default SetUserInfo;
+export default SetPassword;

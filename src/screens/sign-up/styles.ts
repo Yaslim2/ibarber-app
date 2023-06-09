@@ -17,3 +17,7 @@ export const Container = styled.SafeAreaView<{
   margin-left: 20px;
   margin-right: 20px;
 `;
+
+export const StepBar = styled.View`
+  gap: 30px;
+`;

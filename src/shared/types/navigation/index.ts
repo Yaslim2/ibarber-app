@@ -28,6 +28,7 @@ export namespace MainStackTypes {
 export namespace SignUpStackTypes {
   export enum Routes {
     SetUserInfo = 'SetUserInfo',
+    SetPassword = 'SetPassword',
     SetProfileImage = 'SetProfileImage',
     SetPhoneNumber = 'SetPhoneNumber',
     Success = 'Success',

@@ -10,9 +10,12 @@ import { useTheme } from 'styled-components';
 
 import validPasswordStyles from './styles';
 
-const ValidPassword: FC<{ password: string }> = ({ password }) => {
+const ValidPassword: FC<{ password: string; confirmPassword: string }> = ({
+  password,
+  confirmPassword,
+}) => {
   const theme = useTheme() as ThemeOverride;
-  const styles = validPasswordStyles(theme, password);
+  const styles = validPasswordStyles(theme, password, confirmPassword);
 
   return (
     <View style={styles.container}>
@@ -64,6 +67,16 @@ const ValidPassword: FC<{ password: string }> = ({ password }) => {
             color={styles.specialIcon.color}
           />
           &nbsp;1 Caractere especial
+        </Text>
+      </View>
+      <View style={styles.equalPasswordValidation}>
+        <Text font="secondary" weight="bold" style={styles.equalPasswordText}>
+          <AntDesign
+            name="checkcircleo"
+            size={12}
+            color={styles.equalPasswordIcon.color}
+          />
+          &nbsp;As senhas devem ser iguais
         </Text>
       </View>
     </View>

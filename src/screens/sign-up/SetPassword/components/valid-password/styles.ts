@@ -6,18 +6,23 @@ import {
   numberValidation,
   specialValidation,
   uppercaseValidation,
-} from '@/screens/sign-up/SetUserInfo/form.schema';
+} from '@/screens/sign-up/SetPassword/form.schema';
 import { ThemeOverride } from '@/shared/styles/theme';
 
 const validPasswordStyles = (
   { colors, dark }: ThemeOverride,
   password: string,
+  confirmPassword: string,
 ) => {
   const length = lengthValidation(password);
   const uppercase = uppercaseValidation(password);
   const lowercase = lowercaseValidation(password);
   const number = numberValidation(password);
   const special = specialValidation(password);
+  const equalPassword =
+    password.length !== 0 &&
+    confirmPassword.length !== 0 &&
+    password === confirmPassword;
 
   const disabled = dark ? colors.secondary : colors.grey.secondary;
 
@@ -45,9 +50,12 @@ const validPasswordStyles = (
     numberValidation: { width: '28%' },
     numberText: { color: actualTextColor(number), fontSize: 12 },
     numberIcon: { color: actualIconColor(number) },
-    specialValidation: { width: '40%' },
+    specialValidation: { width: '36%' },
     specialText: { color: actualTextColor(special), fontSize: 12 },
     specialIcon: { color: actualIconColor(special) },
+    equalPasswordValidation: { width: '28%' },
+    equalPasswordText: { color: actualTextColor(equalPassword), fontSize: 12 },
+    equalPasswordIcon: { color: actualIconColor(equalPassword) },
   });
 };
 

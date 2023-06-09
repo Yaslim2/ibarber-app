@@ -3,6 +3,7 @@ import { FormProvider } from 'react-hook-form';
 
 import LogoDark from '@/assets/svg/logo-dark.svg';
 import LogoWhite from '@/assets/svg/logo.svg';
+import BackButton from '@/shared/components/BackButton';
 import Button from '@/shared/components/Button';
 import Text from '@/shared/components/Text';
 import { ControlledTextInput } from '@/shared/components/TextInput';
@@ -30,7 +31,7 @@ const Login: MainStackTypes.ComponentProps<
   MainStackTypes.Routes.Login
 > = props => {
   const theme = useTheme() as ThemeOverride;
-  const { methods } = useController(props);
+  const { methods, goBack } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -39,6 +40,7 @@ const Login: MainStackTypes.ComponentProps<
       showsVerticalScrollIndicator={false}
     >
       <ContentContainer>
+        <BackButton onPress={goBack} iconName="close" />
         <Content>
           <FormContainer>
             {theme.dark ? <LogoDark /> : <LogoWhite />}
