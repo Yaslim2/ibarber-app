@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form';
 
 import { MainStackTypes } from '@/shared/types/navigation';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import formValidationSchema from './form.schema';
 
 const useController = ({
   navigation,
@@ -10,7 +13,7 @@ const useController = ({
   };
 
   const { ...methods } = useForm({
-    // resolver: yupResolver(formValidationSchema),
+    resolver: yupResolver(formValidationSchema),
     defaultValues: { email: '', password: '' },
     mode: 'onChange',
   });

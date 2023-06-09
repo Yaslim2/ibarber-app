@@ -7,8 +7,6 @@ const numberValidation = (value: string): boolean => /[0-9]/.test(value);
 const specialValidation = (value: string): boolean =>
   /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value);
 
-const fullnameValidation = (value: string): boolean =>
-  /^[a-z]+ [a-z]+$/.test(value);
 const schema = yup.object({}).shape({
   password: yup
     .string()
@@ -43,5 +41,4 @@ export {
   lowercaseValidation,
   numberValidation,
   specialValidation,
-  fullnameValidation,
 };
