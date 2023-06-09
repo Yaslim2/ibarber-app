@@ -1,118 +1,68 @@
-import React from 'react';
-import PaginationDot from 'react-native-animated-pagination-dot';
+import * as React from 'react';
 
-import BoardingOne from '@/assets/svg/boarding-one.svg';
-import BoardingThree from '@/assets/svg/boarding-three.svg';
-import BoardingTwo from '@/assets/svg/boarding-two.svg';
-import ButtonBoardingFullPercent from '@/assets/svg/button-boarding-full-percent.svg';
-import ButtonBoardingHalfPercent from '@/assets/svg/button-boarding-half-percent.svg';
-import ButtonBoardingZeroPercent from '@/assets/svg/button-boarding-zero-percent.svg';
-import LogoDark from '@/assets/svg/logo-dark.svg';
-import LogoWhite from '@/assets/svg/logo.svg';
-import useController from '@/screens/onboarding/index.controller';
-import Button from '@/shared/components/Button';
-import colors from '@/shared/styles/colors';
-import { ThemeOverride } from '@/shared/styles/theme';
-import { MainStackTypes } from '@/shared/types/navigation';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useTheme } from 'styled-components';
-
+import BackButton from '@/shared/components/BackButton';
 import {
-  Container,
-  ContentContainer,
-  Content,
-  NextPageContainer,
-  NextPageButton,
-  TextTitle,
-  TextSubtitle,
-  BlankView,
-  CenterView,
-  ButtonContainer,
-} from './styles';
+  MainStackTypes,
+  OnboardingStackTypes,
+} from '@/shared/types/navigation';
 
-const Boarding: MainStackTypes.ComponentProps<
+import BoardingOne from './BoardingOne';
+import BoardingThree from './BoardingThree';
+import BoardingTwo from './BoardingTwo';
+import GetStarted from './GetStarted';
+import useOnboardingController from './index.controller';
+import { Container, containerStyle } from './styles';
+
+const Stack = createNativeStackNavigator<OnboardingStackTypes.ParamList>();
+
+const OnboardingStack: MainStackTypes.ComponentProps<
   MainStackTypes.Routes.Onboarding
-> = props => {
-  const theme = useTheme() as ThemeOverride;
-  const { boardingTexts, currentBoard, currentPage, handleNextPage } =
-    useController(props);
+> = ({ navigation, route }) => {
+  const { initialScreen, goBack, routeName, hasHydrated } =
+    useOnboardingController({
+      navigation,
+      route,
+    });
 
   return (
     <Container>
-      <ContentContainer>
-        <Content>
-          {currentBoard !== 'GetStarted' && (
-            <>
-              <BlankView />
-              <BlankView />
-            </>
-          )}
-          <CenterView>
-            {currentBoard === 'BoardingOne' ? (
-              <BoardingOne />
-            ) : currentBoard === 'BoardingTwo' ? (
-              <BoardingTwo />
-            ) : currentBoard === 'BoardingThree' ? (
-              <BoardingThree />
-            ) : theme.dark ? (
-              <LogoDark />
-            ) : (
-              <LogoWhite />
-            )}
-            <TextTitle font="secondary" weight="bold">
-              {boardingTexts[currentBoard].title}
-            </TextTitle>
-            <TextSubtitle
-              font="secondary"
-              weight="regular"
-              color={theme.colors.darkGrey.primary}
-            >
-              {boardingTexts[currentBoard].subtitle}
-            </TextSubtitle>
-          </CenterView>
-          <NextPageContainer>
-            {currentBoard !== 'GetStarted' ? (
-              <>
-                <PaginationDot
-                  inactiveDotColor={colors.grey.tertiary}
-                  activeDotColor={colors.orange.primary}
-                  curPage={currentPage}
-                  maxPage={3}
-                />
-
-                <NextPageButton onPress={handleNextPage.bind(this, undefined)}>
-                  {currentBoard === 'BoardingOne' ? (
-                    <ButtonBoardingZeroPercent />
-                  ) : currentBoard === 'BoardingTwo' ? (
-                    <ButtonBoardingHalfPercent />
-                  ) : (
-                    <ButtonBoardingFullPercent />
-                  )}
-                </NextPageButton>
-              </>
-            ) : (
-              <ButtonContainer>
-                <Button
-                  onPress={handleNextPage.bind(this, 'Login')}
-                  buttonColor={theme.colors.primary}
-                >
-                  Iniciar sessão
-                </Button>
-                <Button
-                  onPress={handleNextPage.bind(this, 'SignUp')}
-                  mode="outlined"
-                  textColor={theme.colors.white.primary}
-                >
-                  Criar uma conta
-                </Button>
-              </ButtonContainer>
-            )}
-          </NextPageContainer>
-          {currentBoard === 'GetStarted' && <BlankView />}
-        </Content>
-      </ContentContainer>
+      {routeName !== OnboardingStackTypes.Routes.BoardingOne && (
+        <BackButton
+          containerStyle={containerStyle}
+          onPress={goBack}
+          iconName="arrowleft"
+        />
+      )}
+      {hasHydrated && initialScreen && (
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            animation: 'fade',
+          }}
+          initialRouteName={initialScreen}
+        >
+          <Stack.Screen
+            name={OnboardingStackTypes.Routes.BoardingOne}
+            component={BoardingOne}
+          />
+          <Stack.Screen
+            name={OnboardingStackTypes.Routes.BoardingTwo}
+            component={BoardingTwo}
+          />
+          <Stack.Screen
+            name={OnboardingStackTypes.Routes.BoardingThree}
+            component={BoardingThree}
+          />
+          <Stack.Screen
+            name={OnboardingStackTypes.Routes.GetStarted}
+            component={GetStarted}
+          />
+        </Stack.Navigator>
+      )}
     </Container>
   );
 };
 
-export default Boarding;
+export default OnboardingStack;

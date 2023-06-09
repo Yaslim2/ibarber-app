@@ -17,6 +17,7 @@ export namespace MainStackTypes {
 
   export interface ParamList extends ParamListFromEnum<Routes> {
     [Routes.SignUp]: NavigatorScreenParams<SignUpStackTypes.ParamList>;
+    [Routes.Onboarding]: NavigatorScreenParams<OnboardingStackTypes.ParamList>;
   }
   export type RouteProps<Route extends Routes> = NativeStackScreenProps<
     ParamList,
@@ -32,6 +33,22 @@ export namespace SignUpStackTypes {
     SetProfileImage = 'SetProfileImage',
     SetPhoneNumber = 'SetPhoneNumber',
     Success = 'Success',
+  }
+
+  export type ParamList = ParamListFromEnum<Routes>;
+  export type RouteProps<Route extends Routes> = NativeStackScreenProps<
+    ParamList,
+    Route
+  >;
+  export type ComponentProps<Route extends Routes> = FC<RouteProps<Route>>;
+}
+
+export namespace OnboardingStackTypes {
+  export enum Routes {
+    BoardingOne = 'BoardingOne',
+    BoardingTwo = 'BoardingTwo',
+    BoardingThree = 'BoardingThree',
+    GetStarted = 'GetStarted',
   }
 
   export type ParamList = ParamListFromEnum<Routes>;

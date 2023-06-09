@@ -1,62 +1,63 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { MainStackTypes } from '@/shared/types/navigation';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
-const useController = ({
+import useOnboardingStore from '@/shared/store/onboarding';
+import {
+  MainStackTypes,
+  OnboardingStackTypes,
+} from '@/shared/types/navigation';
+
+import { shallow } from 'zustand/shallow';
+
+const useOnboardingController = ({
   navigation,
-}: MainStackTypes.RouteProps<MainStackTypes.Routes.Onboarding>) => {
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [currentBoard, setCurrentBoard] = useState<
-    'BoardingOne' | 'BoardingTwo' | 'BoardingThree' | 'GetStarted'
-  >('BoardingOne');
-  const boardingTexts = {
-    BoardingOne: {
-      title: 'Encontre a melhor barbearia\nnas proximidades',
-      subtitle:
-        'Pesquise facilmente suas melhores e favoritas barbearias em qualquer lugar próximo',
-    },
-    BoardingTwo: {
-      title: 'Não precisa aguardar em filas chatas, é só ficar em casa',
-      subtitle:
-        'Aguardando sua vez confortavelmente em casa e informaremos sobre sua vez',
-    },
-    BoardingThree: {
-      title: 'Tudo que você precisa para suas necessidades de barbeiro',
-      subtitle:
-        'Sinta-se à vontade para fazer o agendamento e aguardar sua vez com o iBarber',
-    },
-    GetStarted: {
-      title: 'Pronto para começar?',
-      subtitle:
-        'Cadastre-se ou entre em sua conta para aproveitar os benefícios do iBarber.',
-    },
-  };
+  route,
+}: MainStackTypes.RouteProps<MainStackTypes.Routes.Onboarding>): {
+  initialScreen: OnboardingStackTypes.Routes | undefined;
+  hasHydrated: boolean | null;
+  goBack: () => void;
+  routeName: string | undefined;
+} => {
+  const hasHydrated = useOnboardingStore(state => state._hasHydrated);
+  const [setAccess, firstAccess] = useOnboardingStore(
+    state => [state.setAccess, state.firstAccess],
+    shallow,
+  );
 
-  const handleNextPage = (route?: 'SignUp' | 'Login') => {
-    if (currentBoard !== 'GetStarted' && currentPage !== 3) {
-      setCurrentBoard(
-        currentBoard === 'BoardingOne'
-          ? 'BoardingTwo'
-          : currentBoard === 'BoardingTwo'
-          ? 'BoardingThree'
-          : 'GetStarted',
-      );
-      setCurrentPage(currentPage + 1);
-    } else {
-      navigation.reset({
-        routes: [{ name: MainStackTypes.Routes[route!] }],
-      });
+  const [initialScreen, setInitialScreen] =
+    useState<OnboardingStackTypes.Routes>();
+
+  const routeName = getFocusedRouteNameFromRoute(route);
+
+  const goBack = (): void => {
+    switch (routeName) {
+      case OnboardingStackTypes.Routes.BoardingTwo:
+        navigation.replace(OnboardingStackTypes.Routes.BoardingOne);
+        break;
+      case OnboardingStackTypes.Routes.BoardingThree:
+        navigation.replace(OnboardingStackTypes.Routes.BoardingTwo);
+        break;
+      case OnboardingStackTypes.Routes.GetStarted:
+        navigation.replace(OnboardingStackTypes.Routes.BoardingThree);
+        break;
+      default:
+        break;
     }
   };
 
-  return {
-    boardingTexts,
-    currentBoard,
-    setCurrentBoard,
-    currentPage,
-    setCurrentPage,
-    handleNextPage,
-  };
+  useEffect(() => {
+    if (hasHydrated) {
+      if (firstAccess || firstAccess === null) {
+        setAccess(true);
+        setInitialScreen(OnboardingStackTypes.Routes.BoardingOne);
+      } else {
+        setInitialScreen(OnboardingStackTypes.Routes.GetStarted);
+      }
+    }
+  }, [hasHydrated, firstAccess, setAccess]);
+
+  return { hasHydrated, initialScreen, goBack, routeName };
 };
 
-export default useController;
+export default useOnboardingController;
