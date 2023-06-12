@@ -23,3 +23,7 @@ export const containerStyle: ViewStyle = {
   zIndex: 999,
   position: 'absolute',
 };
+
+export const switchStyle: ViewStyle = {
+  right: 0,
+};

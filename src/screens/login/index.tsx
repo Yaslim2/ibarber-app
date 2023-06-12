@@ -5,6 +5,7 @@ import LogoDark from '@/assets/svg/logo-dark.svg';
 import LogoWhite from '@/assets/svg/logo.svg';
 import BackButton from '@/shared/components/BackButton';
 import Button from '@/shared/components/Button';
+import SwitchDarkTheme from '@/shared/components/SwitchDarkTheme';
 import Text from '@/shared/components/Text';
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { ThemeOverride } from '@/shared/styles/theme';
@@ -25,6 +26,8 @@ import {
   buttonStyle,
   Line,
   ContainerButton,
+  containerStyle,
+  switchStyle,
 } from './styles';
 
 const Login: MainStackTypes.ComponentProps<
@@ -40,7 +43,12 @@ const Login: MainStackTypes.ComponentProps<
       showsVerticalScrollIndicator={false}
     >
       <ContentContainer>
-        <BackButton onPress={goBack} iconName="close" />
+        <BackButton
+          containerStyle={containerStyle}
+          onPress={goBack}
+          iconName="close"
+        />
+        <SwitchDarkTheme style={switchStyle} />
         <Content>
           <FormContainer>
             {theme.dark ? <LogoDark /> : <LogoWhite />}
@@ -65,7 +73,15 @@ const Login: MainStackTypes.ComponentProps<
           </Button>
           <DividerContainer>
             <Line />
-            <Text font="secondary" weight="bold">
+            <Text
+              color={
+                theme.dark
+                  ? theme.colors.white.primary
+                  : theme.colors.dark.primary
+              }
+              font="secondary"
+              weight="bold"
+            >
               ou
             </Text>
             <Line />
@@ -89,7 +105,7 @@ const Login: MainStackTypes.ComponentProps<
           <Text
             underline
             color={
-              theme.dark ? theme.colors.outline : theme.colors.grey.secondary
+              theme.dark ? theme.colors.outline : theme.colors.dark.primary
             }
             font="secondary"
             weight="medium"

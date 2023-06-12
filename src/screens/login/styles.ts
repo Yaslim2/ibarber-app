@@ -56,8 +56,14 @@ export const ContainerButton = styled.View`
 export const Line = styled.View<{ theme: ThemeOverride }>`
   height: 1.6px;
   width: 43%;
-  background-color: ${props =>
-    props.theme.dark
-      ? props.theme.colors.secondary
-      : props.theme.colors.outline};
+  background-color: ${props => props.theme.colors.secondary};
 `;
+
+export const containerStyle: ViewStyle = {
+  zIndex: 999,
+  position: 'absolute',
+};
+
+export const switchStyle: ViewStyle = {
+  right: 0,
+};

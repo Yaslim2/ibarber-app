@@ -3,6 +3,7 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import BackButton from '@/shared/components/BackButton';
+import SwitchDarkTheme from '@/shared/components/SwitchDarkTheme';
 import {
   MainStackTypes,
   OnboardingStackTypes,
@@ -13,7 +14,7 @@ import BoardingThree from './BoardingThree';
 import BoardingTwo from './BoardingTwo';
 import GetStarted from './GetStarted';
 import useOnboardingController from './index.controller';
-import { Container, containerStyle } from './styles';
+import { Container, containerStyle, switchStyle } from './styles';
 
 const Stack = createNativeStackNavigator<OnboardingStackTypes.ParamList>();
 
@@ -35,6 +36,7 @@ const OnboardingStack: MainStackTypes.ComponentProps<
           iconName="arrowleft"
         />
       )}
+      <SwitchDarkTheme style={switchStyle} />
       {hasHydrated && initialScreen && (
         <Stack.Navigator
           screenOptions={{
