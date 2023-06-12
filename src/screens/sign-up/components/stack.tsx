@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SetPassword from '@/screens/sign-up/SetPassword';
+import SetPhoneNumber from '@/screens/sign-up/SetPhoneNumber';
 import SetUserInfo from '@/screens/sign-up/SetUserInfo';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
@@ -24,6 +25,10 @@ const SignUpStack: FC = () => (
     <Stack.Screen
       name={SignUpStackTypes.Routes.SetPassword}
       component={SetPassword}
+    />
+    <Stack.Screen
+      name={SignUpStackTypes.Routes.SetPhoneNumber}
+      component={SetPhoneNumber}
     />
   </Stack.Navigator>
 );

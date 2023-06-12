@@ -14,6 +14,9 @@ const useStepsStore = create<StepsStoreModel>((set, get) => ({
 
     set({ stepPosition: stepPosition - 1 });
   },
+  resetStepPosition() {
+    set({ stepPosition: 0 });
+  },
 }));
 
 export default useStepsStore;

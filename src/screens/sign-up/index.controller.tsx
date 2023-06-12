@@ -111,12 +111,12 @@ const useSignUpController = ({
         navigation.replace(SignUpStackTypes.Routes.SetUserInfo);
         backStepPosition();
         break;
-      case SignUpStackTypes.Routes.SetProfileImage:
+      case SignUpStackTypes.Routes.SetPhoneNumber:
         navigation.replace(SignUpStackTypes.Routes.SetPassword);
         backStepPosition();
         break;
-      case SignUpStackTypes.Routes.SetPhoneNumber:
-        navigation.replace(SignUpStackTypes.Routes.SetProfileImage);
+      case SignUpStackTypes.Routes.SetProfileImage:
+        navigation.replace(SignUpStackTypes.Routes.SetPhoneNumber);
         backStepPosition();
         break;
       default:

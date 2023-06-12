@@ -1,4 +1,5 @@
 import useOnboardingStore from '@/shared/store/onboarding';
+import useStepsStore from '@/shared/store/steps';
 import {
   MainStackTypes,
   OnboardingStackTypes,
@@ -11,8 +12,11 @@ const useController = ({
     state.firstAccess,
     state.changeAccess,
   ]);
+
+  const resetStepPosition = useStepsStore(state => state.resetStepPosition);
   const handleNextPage = (route: 'SignUp' | 'Login') => {
     firstAccess && changeAccess();
+    resetStepPosition();
     navigation.reset({
       routes: [{ name: MainStackTypes.Routes[route] }],
     });

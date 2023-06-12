@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const fullnameValidation = (value: string): boolean =>
-  /^[a-z]+ [a-z]+$/.test(value);
+  /^[a-zA-Z]+ [a-zA-Z]+$/.test(value);
 const schema = yup.object({}).shape({
   fullname: yup
     .string()
