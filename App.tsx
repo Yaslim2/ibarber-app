@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import React from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -35,9 +36,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <NavigationContainer theme={navigationTheme}>
-        <MainStack initialRouteName={MainStackTypes.Routes.Onboarding} />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer theme={navigationTheme}>
+          <MainStack initialRouteName={MainStackTypes.Routes.Onboarding} />
+        </NavigationContainer>
+      </PaperProvider>
     </ThemeProvider>
   );
 }

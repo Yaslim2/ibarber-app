@@ -11,7 +11,10 @@ import { Container, styles } from './styles';
 
 const PhoneInput: FC<
   Omit<
-    CustomTextInputProps & { name: string },
+    CustomTextInputProps & {
+      name: string;
+      onChangeCountry: (value: string) => void;
+    },
     'value' | 'onBlur' | 'onChangeText'
   >
 > = props => {
@@ -23,7 +26,7 @@ const PhoneInput: FC<
       <CountryPicker
         disable={false}
         dropDownImageStyle={styles(theme).dropDownImageStyle}
-        animationType={'slide'}
+        animationType={'fade'}
         language="por"
         containerStyle={styles(theme, active, props.error).containerStyle}
         pickerTitleStyle={styles(theme).pickerTitleStyle}
@@ -34,7 +37,7 @@ const PhoneInput: FC<
         hideCountryFlag={true}
         hideCountryCode={false}
         searchBarStyle={styles(theme).searchBarStyle}
-        countryCode={'55'}
+        selectedValue={props.onChangeCountry}
       />
       <ControlledTextInput
         onBlur={() => setActive(false)}

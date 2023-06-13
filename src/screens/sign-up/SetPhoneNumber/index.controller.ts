@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import formValidationSchema from '@/screens/login/form.schema';
+import useConfirmPhoneNumberModalStore from '@/shared/store/confirm-phone-number-modal';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import formValidationSchema from './form.schema';
+
 const useController = ({
   navigation,
-}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.SetPassword>) => {
+}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.SetPhoneNumber>) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const setIsModalVisible = useConfirmPhoneNumberModalStore(
+    state => state.setIsModalVisible,
+  );
   const nextStepPosition = useStepsStore(state => state.nextStepPosition);
 
   const handleNext = (): void => {
@@ -19,7 +24,8 @@ const useController = ({
     //   methods.getValues('passwordConfirmation'),
     // );
     setIsLoading(false);
-    navigation.navigate(SignUpStackTypes.Routes.SetPhoneNumber);
+    setIsModalVisible(true);
+    // navigation.navigate(SignUpStackTypes.Routes.SetPhoneNumber);
     nextStepPosition();
   };
 
