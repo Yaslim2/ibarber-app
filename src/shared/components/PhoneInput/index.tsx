@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { FC, useState } from 'react';
 
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { CustomTextInputProps } from '@/shared/components/TextInput/types';
-import colors from '@/shared/styles/colors';
 import { ThemeOverride } from '@/shared/styles/theme';
 
 import CountryPicker from 'rn-country-picker';
 import { useTheme } from 'styled-components';
+
+import { Container, styles } from './styles';
 
 const PhoneInput: FC<
   Omit<
@@ -15,88 +15,35 @@ const PhoneInput: FC<
     'value' | 'onBlur' | 'onChangeText'
   >
 > = props => {
+  const [active, setActive] = useState<boolean>(false);
   const theme = useTheme() as ThemeOverride;
 
   return (
-    <View style={{ width: '100%', flexDirection: 'row' }}>
+    <Container>
       <CountryPicker
         disable={false}
+        dropDownImageStyle={styles(theme).dropDownImageStyle}
         animationType={'slide'}
-        language="en"
-        containerStyle={styles.pickerStyle}
-        pickerTitleStyle={styles.pickerTitleStyle}
-        // dropDownImage={require('./res/ic_drop_down.png')}
-        selectedCountryTextStyle={styles.selectedCountryTextStyle}
-        countryNameTextStyle={styles.countryNameTextStyle}
-        pickerTitle={'Country Picker'}
-        searchBarPlaceHolder={'Search......'}
-        hideCountryFlag={false}
+        language="por"
+        containerStyle={styles(theme, active, props.error).containerStyle}
+        pickerTitleStyle={styles(theme).pickerTitleStyle}
+        selectedCountryTextStyle={styles(theme).selectedCountryTextStyle}
+        countryNameTextStyle={styles(theme).countryNameTextStyle}
+        pickerTitle={'Escolha o País'}
+        searchBarPlaceHolder={'Filtrar'}
+        hideCountryFlag={true}
         hideCountryCode={false}
-        searchBarStyle={styles.searchBarStyle}
-        // backButtonImage={require('./res/ic_back_black.png')}
-        // searchButtonImage={require('./res/ic_search.png')}
-        countryCode={'1'}
-        // selectedValue={selectedValue}
+        searchBarStyle={styles(theme).searchBarStyle}
+        countryCode={'55'}
       />
       <ControlledTextInput
-        style={{
-          width: '70%',
-          borderLeftWidth: 0,
-          borderTopLeftRadius: 0,
-          borderBottomLeftRadius: 0,
-        }}
+        onBlur={() => setActive(false)}
+        onFocus={() => setActive(true)}
+        style={styles(theme).customTextInputStyle}
         {...props}
       />
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  titleText: {
-    color: '#000',
-    fontSize: 25,
-    marginBottom: 25,
-    fontWeight: 'bold',
-  },
-  pickerTitleStyle: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    fontWeight: 'bold',
-  },
-  pickerStyle: {
-    width: '30%',
-    borderWidth: 1.5,
-    borderRadius: 8,
-    borderTopRightRadius: 0,
-    marginRight: -3,
-    borderBottomRightRadius: 0,
-    alignItems: 'center',
-    fontSize: 16,
-    borderColor: colors.lightGrey.secondary,
-    color: '#000',
-  },
-  selectedCountryTextStyle: {
-    paddingLeft: 5,
-    color: '#000',
-    textAlign: 'right',
-  },
-
-  countryNameTextStyle: {
-    paddingLeft: 10,
-    color: '#000',
-    textAlign: 'right',
-  },
-
-  searchBarStyle: {
-    flex: 1,
-  },
-});
 
 export default PhoneInput;

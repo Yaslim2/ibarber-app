@@ -79,10 +79,7 @@ const TextInput: FC<CustomTextInputProps> = props => {
 };
 
 export const ControlledTextInput: FC<
-  Omit<
-    CustomTextInputProps & { name: string },
-    'value' | 'onBlur' | 'onChangeText'
-  >
+  Omit<CustomTextInputProps & { name: string }, 'value' | 'onChangeText'>
 > = props => {
   const { field } = useController({ name: props.name });
 
@@ -90,7 +87,10 @@ export const ControlledTextInput: FC<
     <TextInput
       {...props}
       onChangeText={field.onChange}
-      onBlur={field.onBlur}
+      onBlur={e => {
+        field.onBlur();
+        props.onBlur && props.onBlur(e);
+      }}
       value={field.value}
     />
   );

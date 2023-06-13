@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import formValidationSchema from '@/screens/login/form.schema';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useController = ({
   navigation,
@@ -22,7 +24,7 @@ const useController = ({
   };
 
   const { ...methods } = useForm({
-    // resolver: yupResolver(formValidationSchema),
+    resolver: yupResolver(formValidationSchema),
     defaultValues: {
       phoneNumber: '',
     },
