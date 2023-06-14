@@ -1,3 +1,4 @@
+import { TextStyle } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import styled from 'styled-components/native';
@@ -24,3 +25,7 @@ export const Content = styled.View`
   gap: 10px;
   margin-bottom: 20px;
 `;
+
+export const textAlign: TextStyle = {
+  textAlign: 'center',
+};

@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import styled from 'styled-components/native';
@@ -15,6 +15,6 @@ export const ButtonPaper = styled(Button)`
   width: 100%;
 `;
 
-export const labelStyle: TextStyle = {
-  fontFamily: 'Sk-Modernist-Bold',
-};
+export const styles = StyleSheet.create({
+  labelStyle: { fontFamily: 'Sk-Modernist-Bold' },
+});

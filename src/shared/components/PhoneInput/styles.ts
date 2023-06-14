@@ -22,7 +22,7 @@ export const styles = (
       justifyContent: 'center',
       flexDirection: 'row',
       alignSelf: 'center',
-      fontFamily: 'Sk-Modernist-Bold',
+      fontFamily: theme.fonts.secondary.bold,
     },
     containerStyle: {
       width: '30%',
@@ -37,16 +37,16 @@ export const styles = (
     selectedCountryTextStyle: {
       paddingLeft: 5,
       color: theme.colors.white.primary,
-      fontFamily: 'Sk-Modernist',
+      fontFamily: theme.fonts.secondary.regular,
     },
     countryNameTextStyle: {
       color: '#000',
       textAlign: 'left',
-      fontFamily: 'Sk-Modernist',
+      fontFamily: theme.fonts.secondary.regular,
     },
     searchBarStyle: {
       flex: 1,
-      fontFamily: 'Sk-Modernist',
+      fontFamily: theme.fonts.secondary.regular,
     },
     customTextInputStyle: {
       width: '71%',

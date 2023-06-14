@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 
 import useConfirmPhoneNumberModalStore from '@/shared/store/confirm-phone-number-modal';
 import useCountryCodeStore from '@/shared/store/country-code';
-import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
 const useController = ({
@@ -16,7 +15,6 @@ const useController = ({
   const setIsModalVisible = useConfirmPhoneNumberModalStore(
     state => state.setIsModalVisible,
   );
-  const nextStepPosition = useStepsStore(state => state.nextStepPosition);
 
   const handleOpenModal = (): void => {
     setIsModalVisible(true);
@@ -28,7 +26,6 @@ const useController = ({
     setIsLoading(false);
     setIsModalVisible(false);
     navigation.navigate(SignUpStackTypes.Routes.VerificationCode);
-    nextStepPosition();
   };
 
   const { ...methods } = useForm({

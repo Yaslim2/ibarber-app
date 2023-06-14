@@ -5,7 +5,7 @@ import { ThemeOverride } from '@/shared/styles/theme';
 
 import { useTheme } from 'styled-components';
 
-import { ButtonPaper, contentStyle, labelStyle } from './styles';
+import { ButtonPaper, contentStyle, styles } from './styles';
 import { CustomButtonProps } from './types';
 
 const Button: FC<CustomButtonProps> = props => {
@@ -42,7 +42,7 @@ const Button: FC<CustomButtonProps> = props => {
       theme={themePaper}
       dark={theme.dark}
       contentStyle={props.contentStyle || contentStyle}
-      labelStyle={props.labelStyle || labelStyle}
+      labelStyle={props.labelStyle || styles.labelStyle}
       textColor={textColor}
     >
       {props.children}

@@ -1,32 +1,27 @@
-import React from 'react';
-import { FormProvider } from 'react-hook-form';
+import React, { useState } from 'react';
 
 import Button from '@/shared/components/Button';
-import PhoneInput from '@/shared/components/PhoneInput';
+import CodeInput from '@/shared/components/CodeInput';
 import Text from '@/shared/components/Text';
-import { CountryCodes } from '@/shared/constants';
 import { ThemeOverride } from '@/shared/styles/theme';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
-import { countries } from 'countries-list';
-import { CountryCode, isValidNumberForRegion } from 'libphonenumber-js';
 import { useTheme } from 'styled-components';
 
 import useController from './index.controller';
-import { ContainerKeyboardAwareView, Content, TitleContainer } from './styles';
+import {
+  ContainerKeyboardAwareView,
+  Content,
+  TitleContainer,
+  textAlign,
+} from './styles';
 
 const VerificationCode: SignUpStackTypes.ComponentProps<
   SignUpStackTypes.Routes.VerificationCode
 > = props => {
   const theme = useTheme() as ThemeOverride;
-  const {
-    methods,
-    isLoading,
-    handleNext,
-    changeCountryCode,
-    countryCode,
-    callingCode,
-  } = useController(props);
+  const [value, setValue] = useState<string>('');
+  const { isLoading, handleNext } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -36,42 +31,15 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
     >
       <Content>
         <TitleContainer>
-          <Text size={20} font="primary" weight="light">
-            {
-              'Para sua segurança, iremos vincular o seu número de telefone à sua conta'
-            }
+          <Text style={textAlign} size={20} font="primary" weight="light">
+            {'Um código de segurança\nfoi enviado ao número\n+5585992537717\n'}
           </Text>
         </TitleContainer>
-        <FormProvider {...methods}>
-          <PhoneInput
-            onChangeCountry={value => {
-              const selectedCountryCode = Object.keys(countries).find(
-                key => countries[key as CountryCodes].phone === value,
-              );
-
-              changeCountryCode(selectedCountryCode!, value);
-            }}
-            name="phoneNumber"
-            autoCapitalize="none"
-            label="Número de telefone"
-            keyboardType="phone-pad"
-            error={
-              !isValidNumberForRegion(
-                `+${callingCode}${methods.watch('phoneNumber')}`,
-                countryCode as CountryCode,
-              )
-            }
-          />
-        </FormProvider>
+        <CodeInput cellCount={4} setValue={setValue} value={value} />
         <Button
           loading={isLoading}
-          onPress={methods.handleSubmit(handleNext)}
-          disabled={
-            !isValidNumberForRegion(
-              `+${callingCode}${methods.watch('phoneNumber')}`,
-              countryCode as CountryCode,
-            )
-          }
+          onPress={handleNext}
+          disabled={true}
           buttonColor={theme.colors.primary}
         >
           Avançar

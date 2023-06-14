@@ -8,6 +8,8 @@ import SetPhoneNumber from '@/screens/sign-up/SetPhoneNumber';
 import SetUserInfo from '@/screens/sign-up/SetUserInfo';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
+import VerificationCode from 'src/screens/sign-up/VerificationCode';
+
 const Stack = createNativeStackNavigator<SignUpStackTypes.ParamList>();
 
 const SignUpStack: FC = () => (
@@ -29,6 +31,10 @@ const SignUpStack: FC = () => (
     <Stack.Screen
       name={SignUpStackTypes.Routes.SetPhoneNumber}
       component={SetPhoneNumber}
+    />
+    <Stack.Screen
+      name={SignUpStackTypes.Routes.VerificationCode}
+      component={VerificationCode}
     />
   </Stack.Navigator>
 );

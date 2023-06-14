@@ -33,7 +33,7 @@ const TextInput: FC<CustomTextInputProps> = props => {
       ...DefaultTheme.fonts,
       bodyLarge: {
         ...DefaultTheme.fonts.bodyLarge,
-        fontFamily: 'Sk-Modernist',
+        fontFamily: theme.fonts.secondary.regular,
       },
     },
   };
