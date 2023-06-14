@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { ControlledTextInput } from '@/shared/components/TextInput';
 import { CustomTextInputProps } from '@/shared/components/TextInput/types';
+import useCountryCodeStore from '@/shared/store/country-code';
 import { ThemeOverride } from '@/shared/styles/theme';
 
 import CountryPicker from 'rn-country-picker';
@@ -18,6 +19,7 @@ const PhoneInput: FC<
     'value' | 'onBlur' | 'onChangeText'
   >
 > = props => {
+  const callingCode = useCountryCodeStore(state => state.callingCode);
   const [active, setActive] = useState<boolean>(false);
   const theme = useTheme() as ThemeOverride;
 
@@ -38,6 +40,7 @@ const PhoneInput: FC<
         hideCountryCode={false}
         searchBarStyle={styles(theme).searchBarStyle}
         selectedValue={props.onChangeCountry}
+        countryCode={callingCode}
       />
       <ControlledTextInput
         onBlur={() => setActive(false)}

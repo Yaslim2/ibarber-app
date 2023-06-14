@@ -60,7 +60,7 @@ const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
         />
         <View style={content}>
           <Text font="secondary" weight="regular" style={confirmText}>
-            {phoneNumber}
+            {`Tem certeza de que seu telefone é: \n${phoneNumber}?\nEnviaremos um código de \nconfirmação a você via SMS.`}
           </Text>
           <View style={buttonContainer}>
             <Button

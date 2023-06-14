@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import { ThemesEnum } from '@/shared/store/theme/types';
 import { ThemeOverride } from '@/shared/styles/theme';
+
+import styled from 'styled-components/native';
 
 const styles = ({
   theme,
@@ -57,5 +60,15 @@ const styles = ({
       fontWeight: '400',
     },
   });
+
+export const CloseIcon = styled(FeatherIcon)`
+  position: absolute;
+  right: 18;
+  top: 18;
+  color: ${props =>
+    props.theme.dark
+      ? props.theme.colors.outline
+      : props.theme.colors.secondary};
+`;
 
 export default styles;

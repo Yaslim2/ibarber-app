@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormProvider } from 'react-hook-form';
 
 import Button from '@/shared/components/Button';
@@ -9,7 +9,11 @@ import { ThemeOverride } from '@/shared/styles/theme';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import { countries } from 'countries-list';
-import { AsYouType, CountryCode } from 'libphonenumber-js';
+import {
+  AsYouType,
+  CountryCode,
+  isValidNumberForRegion,
+} from 'libphonenumber-js';
 import { useTheme } from 'styled-components';
 
 import ConfirmPhoneNumberModal from './components/ConfirmPhoneNumberModal';
@@ -20,8 +24,15 @@ const SetPhoneNumber: SignUpStackTypes.ComponentProps<
   SignUpStackTypes.Routes.SetPhoneNumber
 > = props => {
   const theme = useTheme() as ThemeOverride;
-  const [countryCode, setCountryCode] = useState<string>('');
-  const { methods, isLoading, handleNext } = useController(props);
+  const {
+    methods,
+    isLoading,
+    handleOpenModal,
+    handleNext,
+    changeCountryCode,
+    countryCode,
+    callingCode,
+  } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -33,10 +44,8 @@ const SetPhoneNumber: SignUpStackTypes.ComponentProps<
         phoneNumber={new AsYouType(countryCode as CountryCode).input(
           `${methods.watch('phoneNumber')}`,
         )}
-        confirmPhoneNumber={async () => {
-          null;
-        }}
-        isLoading={false}
+        confirmPhoneNumber={handleNext}
+        isLoading={isLoading}
       />
       <Content>
         <TitleContainer>
@@ -53,19 +62,29 @@ const SetPhoneNumber: SignUpStackTypes.ComponentProps<
                 key => countries[key as CountryCodes].phone === value,
               );
 
-              setCountryCode(selectedCountryCode!);
+              changeCountryCode(selectedCountryCode!, value);
             }}
             name="phoneNumber"
             autoCapitalize="none"
             label="Número de telefone"
             keyboardType="phone-pad"
-            error={Boolean(methods.formState.errors.phoneNumber)}
+            error={
+              !isValidNumberForRegion(
+                `+${callingCode}${methods.watch('phoneNumber')}`,
+                countryCode as CountryCode,
+              )
+            }
           />
         </FormProvider>
         <Button
           loading={isLoading}
-          onPress={methods.handleSubmit(handleNext)}
-          disabled={!methods.formState.isValid}
+          onPress={methods.handleSubmit(handleOpenModal)}
+          disabled={
+            !isValidNumberForRegion(
+              `+${callingCode}${methods.watch('phoneNumber')}`,
+              countryCode as CountryCode,
+            )
+          }
           buttonColor={theme.colors.primary}
         >
           Avançar

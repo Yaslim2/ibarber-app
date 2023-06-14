@@ -115,8 +115,12 @@ const useSignUpController = ({
         navigation.replace(SignUpStackTypes.Routes.SetPassword);
         backStepPosition();
         break;
-      case SignUpStackTypes.Routes.SetProfileImage:
+      case SignUpStackTypes.Routes.VerificationCode:
         navigation.replace(SignUpStackTypes.Routes.SetPhoneNumber);
+        backStepPosition();
+        break;
+      case SignUpStackTypes.Routes.SetProfileImage:
+        navigation.replace(SignUpStackTypes.Routes.VerificationCode);
         backStepPosition();
         break;
       default:
