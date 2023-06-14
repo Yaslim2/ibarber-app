@@ -5,10 +5,13 @@ import useConfirmPhoneNumberModalStore from '@/shared/store/confirm-phone-number
 import useCountryCodeStore from '@/shared/store/country-code';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import formValidationSchema from './form.schema';
 
 const useController = ({
   navigation,
-}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.SetPhoneNumber>) => {
+}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.VerificationCode>) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [countryCode, changeCountryCode, callingCode] = useCountryCodeStore(
     state => [state.countryCode, state.changeCountryCode, state.callingCode],
@@ -17,10 +20,6 @@ const useController = ({
     state => state.setIsModalVisible,
   );
   const nextStepPosition = useStepsStore(state => state.nextStepPosition);
-
-  const handleOpenModal = (): void => {
-    setIsModalVisible(true);
-  };
 
   const handleNext = async (): Promise<void> => {
     setIsLoading(true);
@@ -32,6 +31,7 @@ const useController = ({
   };
 
   const { ...methods } = useForm({
+    resolver: yupResolver(formValidationSchema),
     defaultValues: {
       phoneNumber: '',
     },
@@ -41,7 +41,6 @@ const useController = ({
   return {
     methods,
     isLoading,
-    handleOpenModal,
     handleNext,
     changeCountryCode,
     countryCode,
