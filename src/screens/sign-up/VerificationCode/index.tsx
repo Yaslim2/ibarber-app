@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Button from '@/shared/components/Button';
 import CodeInput from '@/shared/components/CodeInput';
 import Text from '@/shared/components/Text';
+import { formatTime } from '@/shared/helpers/formatTime';
 import { ThemeOverride } from '@/shared/styles/theme';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
@@ -10,8 +12,12 @@ import { useTheme } from 'styled-components';
 
 import useController from './index.controller';
 import {
+  ContainerIcon,
   ContainerKeyboardAwareView,
   Content,
+  Line,
+  ResendSmsContainer,
+  SmsContainer,
   TitleContainer,
   textAlign,
 } from './styles';
@@ -21,7 +27,8 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
 > = props => {
   const theme = useTheme() as ThemeOverride;
   const [value, setValue] = useState<string>('');
-  const { isLoading, handleNext } = useController(props);
+  const { isLoading, handleNext, remainingTime, handleStartCount } =
+    useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -36,6 +43,29 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
           </Text>
         </TitleContainer>
         <CodeInput cellCount={4} setValue={setValue} value={value} />
+        <ResendSmsContainer onPress={handleStartCount}>
+          <SmsContainer>
+            <ContainerIcon>
+              <MaterialCommunityIcons
+                size={26}
+                name="message-processing"
+                color={theme.colors.dark.secondary}
+              />
+              <Text size={13} font="secondary" weight="bold">
+                Reenviar SMS
+              </Text>
+            </ContainerIcon>
+            <Text
+              color={theme.colors.grey.secondary}
+              size={13}
+              font="secondary"
+              weight="bold"
+            >
+              {formatTime(remainingTime)}
+            </Text>
+          </SmsContainer>
+          <Line />
+        </ResendSmsContainer>
         <Button
           loading={isLoading}
           onPress={handleNext}

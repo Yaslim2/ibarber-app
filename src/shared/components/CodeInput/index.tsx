@@ -32,6 +32,7 @@ const CodeInput: FC<CodeInputProps> = props => {
       textContentType="oneTimeCode"
       renderCell={({ index, symbol, isFocused }) => (
         <Cell
+          key={index}
           font="secondary"
           weight="regular"
           onLayout={getCellOnLayoutHandler(index)}

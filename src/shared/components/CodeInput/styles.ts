@@ -9,8 +9,8 @@ export const Cell = styled(Text)`
   line-height: 55px;
   font-size: 27px;
   border-width: 1px;
-  border-color: '#fff';
-  text-align: 'center';
+  text-align: center;
+  border-color: ${props => props.theme.colors.white.primary};
   border-radius: 8px;
   margin-left: 10px;
   font-family: ${props => props.theme.fonts.secondary.bold};

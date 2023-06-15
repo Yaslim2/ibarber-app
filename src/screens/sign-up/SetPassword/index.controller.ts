@@ -21,7 +21,7 @@ const useController = ({
     // );
     setIsLoading(false);
     navigation.navigate(SignUpStackTypes.Routes.SetPhoneNumber);
-    nextStepPosition();
+    !isLoading && nextStepPosition();
   };
 
   const { ...methods } = useForm({

@@ -69,6 +69,7 @@ const SetPhoneNumber: SignUpStackTypes.ComponentProps<
             label="Número de telefone"
             keyboardType="phone-pad"
             error={
+              methods.watch('phoneNumber') !== '' &&
               !isValidNumberForRegion(
                 `+${callingCode}${methods.watch('phoneNumber')}`,
                 countryCode as CountryCode,
