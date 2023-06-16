@@ -69,7 +69,7 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
         <Button
           loading={isLoading}
           onPress={handleNext}
-          disabled={true}
+          disabled={value.length !== 4}
           buttonColor={theme.colors.primary}
         >
           Avançar
