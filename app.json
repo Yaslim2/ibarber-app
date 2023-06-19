@@ -41,6 +41,14 @@
       "wasm",
       "svg"
      ]
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "microphonePermission": false
+        }
+      ]
+    ]
   }
 }
