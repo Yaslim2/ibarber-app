@@ -1,49 +1,21 @@
 import React, { useState } from 'react';
-import { View, Button, Image } from 'react-native';
+import { View } from 'react-native';
+import { Image } from 'react-native-image-crop-picker';
 
-import * as ImagePicker from 'expo-image-picker';
+import IconComponent from './components/Icon';
+import ImageComponent from './components/Image';
 
 const SetProfileImage = () => {
-  const [selectedImage] = useState(null);
-
-  const selectImage = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (status !== 'granted') {
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync();
-
-    if (!result.canceled) {
-      console.log(result.assets);
-    }
-  };
-
-  const takePhoto = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-
-    if (status !== 'granted') {
-      return;
-    }
-
-    const result = await ImagePicker.launchCameraAsync();
-
-    if (!result.canceled) {
-      console.log(result.assets);
-    }
-  };
+  const [imageUrl] = useState<Image>();
+  const [imageLoading] = useState<boolean>(false);
 
   return (
     <View>
-      {selectedImage && (
-        <Image
-          source={{ uri: selectedImage }}
-          style={{ width: 200, height: 200 }}
-        />
+      {imageUrl ? (
+        <ImageComponent image={imageUrl} handleRemoveImage={() => null} />
+      ) : (
+        <IconComponent handleOpenCamera={() => null} loading={imageLoading} />
       )}
-      <Button title="Selecionar imagem" onPress={selectImage} />
-      <Button title="Tirar foto" onPress={takePhoto} />
     </View>
   );
 };
