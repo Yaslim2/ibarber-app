@@ -9,6 +9,7 @@ export const FormContainer = styled.View`
 `;
 
 export const TitleContainer = styled.View`
+  align-items: center;
   margin-bottom: 10px;
 `;
 

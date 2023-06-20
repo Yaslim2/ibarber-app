@@ -8,4 +8,5 @@ export type CustomTextProps = {
   underline?: boolean;
   color?: string;
   size?: number;
+  italic?: boolean;
 } & ComponentProps<typeof PaperText>;

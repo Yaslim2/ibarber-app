@@ -1,53 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import useImageCaptureController from '@/shared/components/ImageCaptureController';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
+import { ImagePickerAsset } from 'expo-image-picker';
+
 const useController = ({
   navigation,
-}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.VerificationCode>) => {
+}: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.SetProfileImage>) => {
+  const { takePhotoFromPhone } = useImageCaptureController();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [remainingTime, setRemainingTime] = useState(60);
-  const [isActive, setIsActive] = useState<boolean>(true);
+  const [imageUrl, setImageUrl] = useState<ImagePickerAsset>();
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    let interval: number;
+  const handleOpenCamera = async (): Promise<void> => {
+    const photo = await takePhotoFromPhone();
 
-    if (isActive) {
-      if (remainingTime > 0) {
-        interval = setInterval(() => {
-          setRemainingTime(prevTime => prevTime - 1);
-        }, 1000);
-      } else {
-        setIsActive(false);
-      }
-    }
+    setImageLoading(true);
 
-    return () => clearInterval(interval);
-  }, [remainingTime, isActive]);
-
-  const nextStepPosition = useStepsStore(state => state.nextStepPosition);
-
-  const handleStartCount = () => {
-    if (remainingTime === 0) {
-      setRemainingTime(60);
-      setIsActive(true);
+    if (photo) {
+      setImageUrl(photo);
     }
   };
+
+  const handleRemoveImage = (): void => {
+    setImageUrl(undefined);
+  };
+
+  const nextStepPosition = useStepsStore(state => state.nextStepPosition);
 
   const handleNext = async (): Promise<void> => {
     setIsLoading(true);
     // async code
     setIsLoading(false);
-    navigation.navigate(SignUpStackTypes.Routes.SetProfileImage);
+    navigation.navigate(SignUpStackTypes.Routes.Success);
     nextStepPosition();
   };
 
   return {
     isLoading,
     handleNext,
-    remainingTime,
-    handleStartCount,
+    imageUrl,
+    imageLoading,
+    handleOpenCamera,
+    handleRemoveImage,
   };
 };
 

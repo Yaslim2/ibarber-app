@@ -21,3 +21,9 @@ export const Container = styled.SafeAreaView<{
 export const StepBar = styled.View`
   gap: 30px;
 `;
+
+export const ActionsContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;

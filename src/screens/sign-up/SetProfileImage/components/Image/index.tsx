@@ -30,7 +30,7 @@ const ImageComponent: FC<ImageComponentProps> = ({
       </TouchableRipple>
       <ContainerImage>
         <ImageStyled
-          source={{ uri: `data:${image.mime};base64,${image.data}` }}
+          source={{ uri: `data:${image.type};base64,${image.base64}` }}
           resizeMode="stretch"
         />
       </ContainerImage>

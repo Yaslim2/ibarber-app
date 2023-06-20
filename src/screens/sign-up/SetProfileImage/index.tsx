@@ -1,22 +1,41 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Image } from 'react-native-image-crop-picker';
+import React from 'react';
+
+import Text from '@/shared/components/Text';
+import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import IconComponent from './components/Icon';
 import ImageComponent from './components/Image';
+import useController from './index.controller';
+import { Container, Content } from './styles';
 
-const SetProfileImage = () => {
-  const [imageUrl] = useState<Image>();
-  const [imageLoading] = useState<boolean>(false);
+const SetProfileImage: SignUpStackTypes.ComponentProps<
+  SignUpStackTypes.Routes.SetProfileImage
+> = props => {
+  const { handleOpenCamera, handleRemoveImage, imageLoading, imageUrl } =
+    useController(props);
 
   return (
-    <View>
-      {imageUrl ? (
-        <ImageComponent image={imageUrl} handleRemoveImage={() => null} />
-      ) : (
-        <IconComponent handleOpenCamera={() => null} loading={imageLoading} />
-      )}
-    </View>
+    <Container>
+      <Content>
+        <Text size={24} font="primary" weight="bold">
+          {'Foto de Perfil'}
+        </Text>
+        {imageUrl ? (
+          <ImageComponent
+            image={imageUrl}
+            handleRemoveImage={handleRemoveImage}
+          />
+        ) : (
+          <IconComponent
+            handleOpenCamera={handleOpenCamera}
+            loading={imageLoading}
+          />
+        )}
+        <Text size={14} font="primary" weight="light">
+          {'Clique no ícone para escolher a sua foto de perfil.'}
+        </Text>
+      </Content>
+    </Container>
   );
 };
 

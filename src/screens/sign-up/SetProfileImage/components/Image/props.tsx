@@ -1,6 +1,6 @@
-import { Image } from 'react-native-image-crop-picker';
+import { ImagePickerAsset } from 'expo-image-picker';
 
 export interface ImageComponentProps {
-  image: Image;
+  image: ImagePickerAsset;
   handleRemoveImage: () => void;
 }

@@ -9,7 +9,8 @@ export const FormContainer = styled.View`
 `;
 
 export const TitleContainer = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  align-items: center;
 `;
 
 export const ContainerKeyboardAwareView = styled(KeyboardAwareScrollView)`
