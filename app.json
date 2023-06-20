@@ -42,6 +42,9 @@
       "svg"
      ]
     },
+    "permissions": [
+      "CAMERA_ROLL"
+    ],
     "plugins": [
       [
         "expo-image-picker",

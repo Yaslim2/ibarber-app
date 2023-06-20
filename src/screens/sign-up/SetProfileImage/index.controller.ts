@@ -22,6 +22,7 @@ const useController = ({
     if (photo) {
       setImageUrl(photo);
     }
+    setImageLoading(false);
   };
 
   const handleRemoveImage = (): void => {

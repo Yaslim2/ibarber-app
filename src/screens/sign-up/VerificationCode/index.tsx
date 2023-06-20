@@ -27,8 +27,13 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
 > = props => {
   const theme = useTheme() as ThemeOverride;
   const [value, setValue] = useState<string>('');
-  const { isLoading, handleNext, remainingTime, handleStartCount } =
-    useController(props);
+  const {
+    isLoading,
+    handleNext,
+    remainingTime,
+    handleStartCount,
+    phoneNumber,
+  } = useController(props);
 
   return (
     <ContainerKeyboardAwareView
@@ -39,7 +44,9 @@ const VerificationCode: SignUpStackTypes.ComponentProps<
       <Content>
         <TitleContainer>
           <Text style={textAlign} size={20} font="primary" weight="light">
-            {'Um código de segurança\nfoi enviado ao número\n+5585992537717\n'}
+            {'Um código de segurança\nfoi enviado ao número\n'}
+            {phoneNumber}
+            {'\n'}
           </Text>
         </TitleContainer>
         <CodeInput cellCount={4} setValue={setValue} value={value} />
