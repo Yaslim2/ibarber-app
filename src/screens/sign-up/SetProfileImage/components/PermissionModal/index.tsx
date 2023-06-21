@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Text from '@/shared/components/Text';
-import useConfirmPhoneNumberModalStore from '@/shared/store/confirm-phone-number-modal';
+import usePermissionModalStore from '@/shared/store/permission-modal';
 import useThemeStore from '@/shared/store/theme';
 import { ThemeOverride } from '@/shared/styles/theme';
 
@@ -12,22 +12,17 @@ import { shallow } from 'zustand/shallow';
 
 import styles, {
   ButtonContainer,
-  CancelButton,
   CloseIcon,
   ConfirmButton,
   ConfirmText,
   Content,
 } from './styles';
-import { ConfirmPhoneNumberModalProps } from './types';
+import { PermissionModalProps } from './types';
 
-const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
-  confirmPhoneNumber,
-  isLoading,
-  phoneNumber,
-}) => {
+const PermissionModal: FC<PermissionModalProps> = ({ openSettings }) => {
   const actualTheme = useThemeStore(state => state.theme);
   const theme = useTheme() as ThemeOverride;
-  const [isModalVisible, setIsModalVisible] = useConfirmPhoneNumberModalStore(
+  const [isModalVisible, setIsModalVisible] = usePermissionModalStore(
     state => [state.isModalVisible, state.setIsModalVisible],
     shallow,
   );
@@ -41,7 +36,7 @@ const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
       <Modal
         visible={isModalVisible}
         onDismiss={(): void => {
-          !isLoading ? setIsModalVisible(false) : null;
+          setIsModalVisible(false);
         }}
         contentContainerStyle={modalContainerStyle}
       >
@@ -50,39 +45,24 @@ const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
           color={theme.dark ? theme.colors.outline : theme.colors.secondary}
           name="x"
           onPress={(): void => {
-            !isLoading ? setIsModalVisible(false) : null;
+            setIsModalVisible(false);
           }}
         />
         <Content>
+          <MaterialCommunityIcons
+            name="alert-outline"
+            size={60}
+            color={theme.colors.yellow.primary}
+          />
           <ConfirmText size={16} font="secondary" weight="regular">
-            {`Tem certeza de que seu telefone é: \n${phoneNumber}?\nEnviaremos um código de \nconfirmação a você via SMS.`}
+            {
+              'A permissão para acesso à galeria\n foi negada. Por favor, conceda essa permissão para que seja possível \ncolocar uma foto de perfil.'
+            }
           </ConfirmText>
           <ButtonContainer>
-            <CancelButton
-              disabled={isLoading}
-              mode="outlined"
-              onPress={(): void => {
-                !isLoading ? setIsModalVisible(false) : null;
-              }}
-            >
-              <Text
-                font="secondary"
-                weight="regular"
-                size={14}
-                color={
-                  theme.dark ? theme.colors.white.primary : theme.colors.primary
-                }
-              >
-                Cancelar
-              </Text>
-            </CancelButton>
             <ConfirmButton
-              disabled={isLoading}
-              loading={isLoading}
               mode="contained"
-              onPress={async () => {
-                await confirmPhoneNumber();
-              }}
+              onPress={openSettings}
               buttonColor={theme.colors.primary}
             >
               <Text
@@ -91,10 +71,9 @@ const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
                 color={theme.colors.onPrimary}
                 size={14}
               >
-                Confirmar
+                Permitir
               </Text>
             </ConfirmButton>
-            <View />
           </ButtonContainer>
         </Content>
       </Modal>
@@ -102,4 +81,4 @@ const ConfirmPhoneNumberModal: FC<ConfirmPhoneNumberModalProps> = ({
   );
 };
 
-export default ConfirmPhoneNumberModal;
+export default PermissionModal;

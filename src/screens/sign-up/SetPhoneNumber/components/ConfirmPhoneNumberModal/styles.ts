@@ -25,8 +25,8 @@ const styles = ({
 
 export const CloseIcon = styled(FeatherIcon)`
   position: absolute;
-  right: 18;
-  top: 18;
+  right: 18px;
+  top: 18px;
   color: ${props =>
     props.theme.dark
       ? props.theme.colors.outline

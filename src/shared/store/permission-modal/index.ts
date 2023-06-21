@@ -1,17 +1,12 @@
 import { create } from 'zustand';
 
-import { ConfirmPhoneNumberModalStoreModel } from './types';
+import { PermissionModalStoreModel } from './types';
 
-const useConfirmPhoneNumberModalStore =
-  create<ConfirmPhoneNumberModalStoreModel>(set => ({
-    isModalVisible: false,
-    isLoading: false,
-    setIsLoading(isLoading: boolean): void {
-      set({ isLoading });
-    },
-    setIsModalVisible(isModalVisible: boolean): void {
-      set({ isModalVisible });
-    },
-  }));
+const usePermissionModalStore = create<PermissionModalStoreModel>(set => ({
+  isModalVisible: false,
+  setIsModalVisible(isModalVisible: boolean): void {
+    set({ isModalVisible });
+  },
+}));
 
-export default useConfirmPhoneNumberModalStore;
+export default usePermissionModalStore;

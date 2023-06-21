@@ -10,6 +10,7 @@ const colors = {
   orange: { primary: '#FEA051' },
   purple: { primary: '#8029ED', secondary: '#B57AFF', tertiary: '#3C1450' },
   green: { primary: '#14B455' },
+  yellow: { primary: '#F7F700' },
 };
 
 export default colors;

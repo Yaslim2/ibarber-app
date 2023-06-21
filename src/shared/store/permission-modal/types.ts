@@ -1,6 +1,4 @@
-export interface ConfirmPhoneNumberModalStoreModel {
+export interface PermissionModalStoreModel {
   isModalVisible: boolean;
   setIsModalVisible: (isModalVisible: boolean) => void;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
 }

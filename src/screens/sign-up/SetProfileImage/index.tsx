@@ -5,17 +5,24 @@ import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import IconComponent from './components/Icon';
 import ImageComponent from './components/Image';
+import PermissionModal from './components/PermissionModal';
 import useController from './index.controller';
 import { Container, Content } from './styles';
 
 const SetProfileImage: SignUpStackTypes.ComponentProps<
   SignUpStackTypes.Routes.SetProfileImage
 > = props => {
-  const { handleOpenCamera, handleRemoveImage, imageLoading, imageUrl } =
-    useController(props);
+  const {
+    handleOpenCamera,
+    handleRemoveImage,
+    imageLoading,
+    imageUrl,
+    openAppSettings,
+  } = useController(props);
 
   return (
     <Container>
+      <PermissionModal openSettings={openAppSettings} />
       <Content>
         <Text size={24} font="primary" weight="bold">
           {'Foto de Perfil'}

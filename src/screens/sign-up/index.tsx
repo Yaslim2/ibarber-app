@@ -38,17 +38,19 @@ const SignUpScreen: MainStackTypes.ComponentProps<
                 : 'arrowleft'
             }
           />
-          <TouchableOpacity onPress={() => null}>
-            <Text
-              color={theme.colors.onBackground}
-              font="secondary"
-              weight="medium"
-              size={16}
-              underline
-            >
-              Pular
-            </Text>
-          </TouchableOpacity>
+          {routeName === SignUpStackTypes.Routes.SetProfileImage && (
+            <TouchableOpacity onPress={() => null}>
+              <Text
+                color={theme.colors.onBackground}
+                font="secondary"
+                weight="medium"
+                size={16}
+                underline
+              >
+                Pular
+              </Text>
+            </TouchableOpacity>
+          )}
         </ActionsContainer>
 
         <StepIndicator

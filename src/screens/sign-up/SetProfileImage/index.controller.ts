@@ -1,14 +1,21 @@
 import { useState } from 'react';
+import { Linking, Platform } from 'react-native';
 
 import useImageCaptureController from '@/shared/components/ImageCaptureController';
+import usePermissionModalStore from '@/shared/store/permission-modal';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
 import { ImagePickerAsset } from 'expo-image-picker';
+import { shallow } from 'zustand/shallow';
 
 const useController = ({
   navigation,
 }: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.SetProfileImage>) => {
+  const [setIsModalVisible] = usePermissionModalStore(
+    state => [state.setIsModalVisible],
+    shallow,
+  );
   const { takePhotoFromPhone } = useImageCaptureController();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<ImagePickerAsset>();
@@ -21,8 +28,18 @@ const useController = ({
 
     if (photo) {
       setImageUrl(photo);
+    } else {
+      setIsModalVisible(true);
     }
     setImageLoading(false);
+  };
+
+  const openAppSettings = () => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL('app-settings:');
+    } else if (Platform.OS === 'android') {
+      Linking.openSettings();
+    }
   };
 
   const handleRemoveImage = (): void => {
@@ -46,6 +63,7 @@ const useController = ({
     imageLoading,
     handleOpenCamera,
     handleRemoveImage,
+    openAppSettings,
   };
 };
 
