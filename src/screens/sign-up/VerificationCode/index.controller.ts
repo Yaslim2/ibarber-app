@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { useRoute } from '@react-navigation/native';
-
+import useSignUpStore from '@/shared/store/sign-up';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
 const useController = ({
   navigation,
 }: SignUpStackTypes.RouteProps<SignUpStackTypes.Routes.VerificationCode>) => {
-  const { params } = useRoute() as { params: { phoneNumber: string } };
-
+  const phoneNumber = useSignUpStore(state => state.phoneNumber);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [remainingTime, setRemainingTime] = useState(60);
   const [isActive, setIsActive] = useState<boolean>(true);
@@ -52,7 +50,7 @@ const useController = ({
     handleNext,
     remainingTime,
     handleStartCount,
-    phoneNumber: params.phoneNumber,
+    phoneNumber,
   };
 };
 

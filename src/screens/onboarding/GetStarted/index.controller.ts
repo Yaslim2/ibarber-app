@@ -5,13 +5,15 @@ import {
   OnboardingStackTypes,
 } from '@/shared/types/navigation';
 
+import { shallow } from 'zustand/shallow';
+
 const useController = ({
   navigation,
 }: OnboardingStackTypes.RouteProps<OnboardingStackTypes.Routes.GetStarted>) => {
-  const [firstAccess, changeAccess] = useOnboardingStore(state => [
-    state.firstAccess,
-    state.changeAccess,
-  ]);
+  const [firstAccess, changeAccess] = useOnboardingStore(
+    state => [state.firstAccess, state.changeAccess],
+    shallow,
+  );
 
   const resetStepPosition = useStepsStore(state => state.resetStepPosition);
   const handleNextPage = (route: 'SignUp' | 'Login') => {

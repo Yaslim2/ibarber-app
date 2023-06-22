@@ -28,7 +28,7 @@ const useController = ({
 
     if (photo) {
       setImageUrl(photo);
-    } else {
+    } else if (photo === null) {
       setIsModalVisible(true);
     }
     setImageLoading(false);

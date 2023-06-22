@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 
 import useConfirmPhoneNumberModalStore from '@/shared/store/confirm-phone-number-modal';
 import useCountryCodeStore from '@/shared/store/country-code';
+import useSignUpStore from '@/shared/store/sign-up';
 import { SignUpStackTypes } from '@/shared/types/navigation';
 
-import { AsYouType, CountryCode } from 'libphonenumber-js';
+import { shallow } from 'zustand/shallow';
 
 const useController = ({
   navigation,
@@ -13,6 +14,11 @@ const useController = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [countryCode, changeCountryCode, callingCode] = useCountryCodeStore(
     state => [state.countryCode, state.changeCountryCode, state.callingCode],
+    shallow,
+  );
+  const [updateField, phoneNumber] = useSignUpStore(
+    state => [state.updateField, state.phoneNumber],
+    shallow,
   );
   const setIsModalVisible = useConfirmPhoneNumberModalStore(
     state => state.setIsModalVisible,
@@ -25,18 +31,15 @@ const useController = ({
   const handleNext = async (): Promise<void> => {
     setIsLoading(true);
     // async code
+    updateField({ phoneNumber: methods.getValues('phoneNumber') });
     setIsLoading(false);
     setIsModalVisible(false);
-    navigation.navigate(SignUpStackTypes.Routes.VerificationCode, {
-      phoneNumber: new AsYouType(countryCode as CountryCode).input(
-        `${methods.watch('phoneNumber')}`,
-      ),
-    });
+    navigation.navigate(SignUpStackTypes.Routes.VerificationCode);
   };
 
   const { ...methods } = useForm({
     defaultValues: {
-      phoneNumber: '',
+      phoneNumber,
     },
     mode: 'onChange',
   });

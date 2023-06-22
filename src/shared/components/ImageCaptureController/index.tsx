@@ -8,10 +8,10 @@ import {
 } from 'expo-image-picker';
 
 const useImageCaptureController = (): {
-  takePhoto: () => Promise<ImagePickerAsset | null>;
-  takePhotoFromPhone: () => Promise<ImagePickerAsset | null>;
+  takePhoto: () => Promise<ImagePickerAsset | null | undefined>;
+  takePhotoFromPhone: () => Promise<ImagePickerAsset | null | undefined>;
 } => {
-  const takePhoto = async (): Promise<ImagePickerAsset | null> => {
+  const takePhoto = async (): Promise<ImagePickerAsset | null | undefined> => {
     try {
       const { status } = await requestCameraPermissionsAsync();
 
@@ -27,7 +27,7 @@ const useImageCaptureController = (): {
       });
 
       if (!assets || canceled) {
-        return null;
+        return undefined;
       }
 
       return assets[0];
@@ -36,7 +36,9 @@ const useImageCaptureController = (): {
     }
   };
 
-  const takePhotoFromPhone = async (): Promise<ImagePickerAsset | null> => {
+  const takePhotoFromPhone = async (): Promise<
+    ImagePickerAsset | null | undefined
+  > => {
     try {
       const { status } = await requestMediaLibraryPermissionsAsync();
 
@@ -52,12 +54,12 @@ const useImageCaptureController = (): {
       });
 
       if (!assets || canceled) {
-        return null;
+        return undefined;
       }
 
       return assets[0];
     } catch (error) {
-      return null;
+      return undefined;
     }
   };
 
