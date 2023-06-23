@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 
+import useCountryCodeStore from '@/shared/store/country-code';
 import useSignUpStore from '@/shared/store/sign-up';
 import useStepsStore from '@/shared/store/steps';
 import { SignUpStackTypes } from '@/shared/types/navigation';
+
+import { AsYouType, CountryCode } from 'libphonenumber-js';
+import { shallow } from 'zustand/shallow';
 
 const useController = ({
   navigation,
@@ -36,6 +40,10 @@ const useController = ({
       setIsActive(true);
     }
   };
+  const [countryCode] = useCountryCodeStore(
+    state => [state.countryCode, state.changeCountryCode, state.callingCode],
+    shallow,
+  );
 
   const handleNext = async (): Promise<void> => {
     setIsLoading(true);
@@ -50,7 +58,7 @@ const useController = ({
     handleNext,
     remainingTime,
     handleStartCount,
-    phoneNumber,
+    phoneNumber: new AsYouType(countryCode as CountryCode).input(phoneNumber),
   };
 };
 

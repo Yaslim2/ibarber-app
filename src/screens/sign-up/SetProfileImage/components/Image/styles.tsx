@@ -7,9 +7,7 @@ import styled from 'styled-components/native';
 const styles = (theme: ThemeOverride) =>
   StyleSheet.create({
     buttonContainerStyle: {
-      backgroundColor: theme.dark
-        ? theme.colors.onPrimary
-        : theme.colors.primary,
+      backgroundColor: theme.colors.primary,
       borderRadius: 175,
       width: 25,
       height: 25,
@@ -38,5 +36,7 @@ export const ContainerImage = styled.View<{ theme: ThemeOverride }>`
   border-radius: 200px;
   margin-top: 8px;
 `;
+
+export const Container = styled.View``;
 
 export default styles;
